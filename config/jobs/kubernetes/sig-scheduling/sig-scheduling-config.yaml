@@ -20,7 +20,7 @@ periodics:
     path_alias: "k8s.io/test-infra"
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/krte:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/krte:v20260127-f10a7ebcce-master
       command:
       - wrapper.sh
       - bash
@@ -74,13 +74,13 @@ presubmits:
       timeout: 3h55m
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
         - /bin/sh
         - -c
-        - ./hack/install-etcd.sh && PATH=${PWD}/third_party/etcd:${PATH} make test-integration WHAT=./test/integration/scheduler_perf/... KUBE_TIMEOUT=--timeout=3h55m ETCD_LOGLEVEL=warn KUBE_TEST_ARGS="-run=nothing-because-no-test-has-this-name -benchtime=1ns -bench=BenchmarkPerfScheduling -data-items-dir=${ARTIFACTS}" SHORT='--short=false' KUBE_PRUNE_JUNIT_TESTS=false
+        - ./hack/install-etcd.sh && PATH=${PWD}/third_party/etcd:${PATH} make test-integration WHAT=./test/integration/scheduler_perf/... KUBE_CACHE_MUTATION_DETECTOR=false KUBE_TIMEOUT=--timeout=3h55m ETCD_LOGLEVEL=warn KUBE_TEST_ARGS="-run=nothing-because-no-test-has-this-name -benchtime=1ns -bench=BenchmarkPerfScheduling -data-items-dir=${ARTIFACTS}" SHORT='--short=false' KUBE_PRUNE_JUNIT_TESTS=false
         # We need to constraint compute resources so all the tests
         # finish approximately at the same time. More compute power
         # can increase scheduling throughput and make consequent results

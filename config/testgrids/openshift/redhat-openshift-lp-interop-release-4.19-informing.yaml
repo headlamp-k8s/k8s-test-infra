@@ -73,14 +73,14 @@ dashboards:
       - key: comment
         value: 'test: <test-name> failed, see job: <link>'
       url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
+    name: periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
     open_bug_template:
       url: https://github.com/openshift/origin/issues/
     open_test_template:
       url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
     results_url_template:
       url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
+    test_group_name: periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
   - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
     code_search_path: https://github.com/openshift/origin/search
     code_search_url_template:
@@ -100,14 +100,14 @@ dashboards:
       - key: comment
         value: 'test: <test-name> failed, see job: <link>'
       url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
+    name: periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
     open_bug_template:
       url: https://github.com/openshift/origin/issues/
     open_test_template:
       url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
     results_url_template:
       url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
+    test_group_name: periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
   - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
     code_search_path: https://github.com/openshift/origin/search
     code_search_url_template:
@@ -127,14 +127,14 @@ dashboards:
       - key: comment
         value: 'test: <test-name> failed, see job: <link>'
       url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9
+    name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0
     open_bug_template:
       url: https://github.com/openshift/origin/issues/
     open_test_template:
       url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
     results_url_template:
       url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9
+    test_group_name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0
   - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
     code_search_path: https://github.com/openshift/origin/search
     code_search_url_template:
@@ -154,14 +154,14 @@ dashboards:
       - key: comment
         value: 'test: <test-name> failed, see job: <link>'
       url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9-fips
+    name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0-fips
     open_bug_template:
       url: https://github.com/openshift/origin/issues/
     open_test_template:
       url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
     results_url_template:
       url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9-fips
+    test_group_name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0-fips
   - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
     code_search_path: https://github.com/openshift/origin/search
     code_search_url_template:
@@ -721,60 +721,6 @@ dashboards:
       - key: comment
         value: 'test: <test-name> failed, see job: <link>'
       url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws
-    open_bug_template:
-      url: https://github.com/openshift/origin/issues/
-    open_test_template:
-      url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
-    results_url_template:
-      url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws
-  - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
-    code_search_path: https://github.com/openshift/origin/search
-    code_search_url_template:
-      url: https://github.com/openshift/origin/compare/<start-custom-0>...<end-custom-0>
-    file_bug_template:
-      options:
-      - key: classification
-        value: Red Hat
-      - key: product
-        value: OpenShift Container Platform
-      - key: cf_internal_whiteboard
-        value: buildcop
-      - key: short_desc
-        value: 'test: <test-name>'
-      - key: cf_environment
-        value: 'test: <test-name>'
-      - key: comment
-        value: 'test: <test-name> failed, see job: <link>'
-      url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws-fips
-    open_bug_template:
-      url: https://github.com/openshift/origin/issues/
-    open_test_template:
-      url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
-    results_url_template:
-      url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws-fips
-  - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
-    code_search_path: https://github.com/openshift/origin/search
-    code_search_url_template:
-      url: https://github.com/openshift/origin/compare/<start-custom-0>...<end-custom-0>
-    file_bug_template:
-      options:
-      - key: classification
-        value: Red Hat
-      - key: product
-        value: OpenShift Container Platform
-      - key: cf_internal_whiteboard
-        value: buildcop
-      - key: short_desc
-        value: 'test: <test-name>'
-      - key: cf_environment
-        value: 'test: <test-name>'
-      - key: comment
-        value: 'test: <test-name> failed, see job: <link>'
-      url: https://bugzilla.redhat.com/enter_bug.cgi
     name: periodic-ci-mtc-qe-mtc-e2e-qev2-master-mtc1.8-ocp4.19-lp-interop-mtc-interop-aws
     open_bug_template:
       url: https://github.com/openshift/origin/issues/
@@ -810,60 +756,6 @@ dashboards:
     results_url_template:
       url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
     test_group_name: periodic-ci-mtc-qe-mtc-e2e-qev2-master-mtc1.8-ocp4.19-lp-interop-mtc-interop-aws-fips
-  - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
-    code_search_path: https://github.com/openshift/origin/search
-    code_search_url_template:
-      url: https://github.com/openshift/origin/compare/<start-custom-0>...<end-custom-0>
-    file_bug_template:
-      options:
-      - key: classification
-        value: Red Hat
-      - key: product
-        value: OpenShift Container Platform
-      - key: cf_internal_whiteboard
-        value: buildcop
-      - key: short_desc
-        value: 'test: <test-name>'
-      - key: cf_environment
-        value: 'test: <test-name>'
-      - key: comment
-        value: 'test: <test-name> failed, see job: <link>'
-      url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419
-    open_bug_template:
-      url: https://github.com/openshift/origin/issues/
-    open_test_template:
-      url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
-    results_url_template:
-      url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419
-  - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
-    code_search_path: https://github.com/openshift/origin/search
-    code_search_url_template:
-      url: https://github.com/openshift/origin/compare/<start-custom-0>...<end-custom-0>
-    file_bug_template:
-      options:
-      - key: classification
-        value: Red Hat
-      - key: product
-        value: OpenShift Container Platform
-      - key: cf_internal_whiteboard
-        value: buildcop
-      - key: short_desc
-        value: 'test: <test-name>'
-      - key: cf_environment
-        value: 'test: <test-name>'
-      - key: comment
-        value: 'test: <test-name> failed, see job: <link>'
-      url: https://bugzilla.redhat.com/enter_bug.cgi
-    name: periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419-fips
-    open_bug_template:
-      url: https://github.com/openshift/origin/issues/
-    open_test_template:
-      url: https://prow.ci.openshift.org/view/gs/<gcs_prefix>/<changelist>
-    results_url_template:
-      url: https://prow.ci.openshift.org/job-history/<gcs_prefix>
-    test_group_name: periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419-fips
   - base_options: width=10&exclude-filter-by-regex=Monitor%5Cscluster&exclude-filter-by-regex=%5Eoperator.Run%20template.*container%20test%24
     code_search_path: https://github.com/openshift/origin/search
     code_search_url_template:
@@ -1626,14 +1518,14 @@ test_groups:
   name: periodic-ci-Apicurio-apicurio-registry-system-tests-main-service-registry-ocp4.19-lp-interop-service-registry-2-6
 - gcs_prefix: test-platform-results/logs/periodic-ci-Apicurio-apicurio-registry-system-tests-main-service-registry-ocp4.19-lp-interop-service-registry-2-6-fips
   name: periodic-ci-Apicurio-apicurio-registry-system-tests-main-service-registry-ocp4.19-lp-interop-service-registry-2-6-fips
-- gcs_prefix: test-platform-results/logs/periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
-  name: periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
-- gcs_prefix: test-platform-results/logs/periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
-  name: periodic-ci-RedHatQE-interop-testing-cnv-4.18-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
-- gcs_prefix: test-platform-results/logs/periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9
-  name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9
-- gcs_prefix: test-platform-results/logs/periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9-fips
-  name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-2-9-fips
+- gcs_prefix: test-platform-results/logs/periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
+  name: periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419
+- gcs_prefix: test-platform-results/logs/periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
+  name: periodic-ci-RedHatQE-interop-testing-master-cnv-odf-ocp4.19-lp-interop-cnv-odf-tests-aws-ipi-ocp419-fips
+- gcs_prefix: test-platform-results/logs/periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0
+  name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0
+- gcs_prefix: test-platform-results/logs/periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0-fips
+  name: periodic-ci-amq-streams-qe-strimzi-kafka-operator-main-amq-streams-ocp4.19-lp-interop-amq-streams-3-0-fips
 - gcs_prefix: test-platform-results/logs/periodic-ci-ansible-tower-qa-devel-ocp4.19-lp-interop-aap-interop-aws
   name: periodic-ci-ansible-tower-qa-devel-ocp4.19-lp-interop-aap-interop-aws
 - gcs_prefix: test-platform-results/logs/periodic-ci-ansible-tower-qa-devel-ocp4.19-lp-interop-aap-interop-aws-fips
@@ -1674,18 +1566,10 @@ test_groups:
   name: periodic-ci-konveyor-tackle-ui-tests-release-0.6-mta-ocp4.19-lp-interop-mta-interop-aws
 - gcs_prefix: test-platform-results/logs/periodic-ci-konveyor-tackle-ui-tests-release-0.6-mta-ocp4.19-lp-interop-mta-interop-aws-fips
   name: periodic-ci-konveyor-tackle-ui-tests-release-0.6-mta-ocp4.19-lp-interop-mta-interop-aws-fips
-- gcs_prefix: test-platform-results/logs/periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws
-  name: periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws
-- gcs_prefix: test-platform-results/logs/periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws-fips
-  name: periodic-ci-maistra-maistra-test-tool-main-servicemesh-ocp4.19-lp-interop-servicemesh-interop-aws-fips
 - gcs_prefix: test-platform-results/logs/periodic-ci-mtc-qe-mtc-e2e-qev2-master-mtc1.8-ocp4.19-lp-interop-mtc-interop-aws
   name: periodic-ci-mtc-qe-mtc-e2e-qev2-master-mtc1.8-ocp4.19-lp-interop-mtc-interop-aws
 - gcs_prefix: test-platform-results/logs/periodic-ci-mtc-qe-mtc-e2e-qev2-master-mtc1.8-ocp4.19-lp-interop-mtc-interop-aws-fips
   name: periodic-ci-mtc-qe-mtc-e2e-qev2-master-mtc1.8-ocp4.19-lp-interop-mtc-interop-aws-fips
-- gcs_prefix: test-platform-results/logs/periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419
-  name: periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419
-- gcs_prefix: test-platform-results/logs/periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419-fips
-  name: periodic-ci-openshift-knative-serverless-operator-main-ocp4.19-lp-interop-operator-e2e-interop-aws-ocp419-fips
 - gcs_prefix: test-platform-results/logs/periodic-ci-openshift-pipelines-release-tests-release-v1.18-openshift-pipelines-ocp4.19-lp-interop-openshift-pipelines-interop-aws
   name: periodic-ci-openshift-pipelines-release-tests-release-v1.18-openshift-pipelines-ocp4.19-lp-interop-openshift-pipelines-interop-aws
 - gcs_prefix: test-platform-results/logs/periodic-ci-openshift-pipelines-release-tests-release-v1.18-openshift-pipelines-ocp4.19-lp-interop-openshift-pipelines-interop-aws-fips

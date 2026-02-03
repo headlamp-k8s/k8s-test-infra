@@ -14,7 +14,7 @@ postsubmits:
       spec:
         serviceAccountName: gcb-builder
         containers:
-          - image: gcr.io/k8s-staging-test-infra/image-builder:v20241224-fe22c549c1
+          - image: gcr.io/k8s-staging-test-infra/image-builder:v20251215-d7853fe2a6
             command:
               - /run.sh
             args:
@@ -46,7 +46,7 @@ postsubmits:
       spec:
         serviceAccountName: gcb-builder
         containers:
-          - image: gcr.io/k8s-staging-test-infra/image-builder:v20241224-fe22c549c1
+          - image: gcr.io/k8s-staging-test-infra/image-builder:v20251215-d7853fe2a6
             command:
               - /run.sh
             args:
@@ -71,7 +71,7 @@ postsubmits:
         testgrid-alert-email: release-managers+alerts@kubernetes.io, release-team@kubernetes.io
       decorate: true
       decoration_config:
-        timeout: 240m
+        timeout: 480m
         grace_period: 10m
       run_if_changed: '^images\/build\/go-runner\/'
       branches:
@@ -81,7 +81,7 @@ postsubmits:
       spec:
         serviceAccountName: gcb-builder
         containers:
-          - image: gcr.io/k8s-staging-test-infra/image-builder:v20241224-fe22c549c1
+          - image: gcr.io/k8s-staging-test-infra/image-builder:v20251215-d7853fe2a6
             command:
               - /run.sh
             args:
@@ -115,7 +115,7 @@ postsubmits:
       spec:
         serviceAccountName: gcb-builder
         containers:
-          - image: gcr.io/k8s-staging-test-infra/image-builder:v20241224-fe22c549c1
+          - image: gcr.io/k8s-staging-test-infra/image-builder:v20251215-d7853fe2a6
             command:
               - /run.sh
             args:
@@ -148,7 +148,7 @@ postsubmits:
       spec:
         serviceAccountName: gcb-builder
         containers:
-          - image: gcr.io/k8s-staging-test-infra/image-builder:v20241224-fe22c549c1
+          - image: gcr.io/k8s-staging-test-infra/image-builder:v20251215-d7853fe2a6
             command:
               - /run.sh
             args:

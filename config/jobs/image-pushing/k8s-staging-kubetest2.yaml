@@ -17,7 +17,7 @@ postsubmits:
       spec:
         serviceAccountName: gcb-builder
         containers:
-          - image: gcr.io/k8s-staging-test-infra/image-builder:v20241224-fe22c549c1
+          - image: gcr.io/k8s-staging-test-infra/image-builder:v20251215-d7853fe2a6
             command:
               - /run.sh
             args:
@@ -41,6 +41,9 @@ periodics:
       testgrid-dashboards: sig-testing-kubetest2, sig-k8s-infra-gcb
       testgrid-alert-email: kubernetes-sig-testing-alerts@googlegroups.com
     decorate: true
+    decoration_config:
+      timeout: 180m
+      grace_period: 10m
     extra_refs:
       - org: kubernetes-sigs
         repo: kubetest2
@@ -49,7 +52,7 @@ periodics:
     spec:
       serviceAccountName: gcb-builder
       containers:
-        - image: gcr.io/k8s-staging-test-infra/image-builder:v20241224-fe22c549c1
+        - image: gcr.io/k8s-staging-test-infra/image-builder:v20251215-d7853fe2a6
           command:
             - /run.sh
           args:

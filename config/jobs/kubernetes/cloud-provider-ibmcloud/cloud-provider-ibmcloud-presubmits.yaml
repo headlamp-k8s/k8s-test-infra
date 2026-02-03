@@ -8,13 +8,13 @@ presubmits:
       timeout: 220m
     annotations:
       description: Optional presubmit job to test changes in kubernetes-sigs/provider-ibmcloud-test-infra repo
-      testgrid-dashboards: ibm-presubmits
+      testgrid-dashboards: ibm-ppc64le-presubmits
       testgrid-tab-name: pull-provider-ibmcloud-test-infra-kubernetes
     labels:
       preset-ibmcloud-cred: "true"
     spec:
       containers:
-        - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20250613-876fb90a97-master
+        - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
           securityContext:
             privileged: true
           env:
@@ -40,8 +40,6 @@ presubmits:
               set -o pipefail
               set -o xtrace
 
-              export PATH=$GOPATH/bin:$PATH
-              export GO111MODULE=on
               RESOURCE_TYPE="powervs"
               #Call to boskos to checkout resource
               source "./hack/boskos.sh"
@@ -59,7 +57,7 @@ presubmits:
 
               set +o errexit
               set -o xtrace
-              kubetest2 tf --powervs-image-name CentOS-Stream-9 \
+              kubetest2 tf --powervs-image-name CentOS-Stream-10 \
                 --powervs-region ${BOSKOS_REGION} --powervs-zone ${BOSKOS_ZONE} \
                 --powervs-service-id ${BOSKOS_RESOURCE_ID} \
                 --powervs-ssh-key k8s-prow-sshkey \
@@ -67,7 +65,7 @@ presubmits:
                 --build-version $K8S_BUILD_VERSION \
                 --release-marker $K8S_BUILD_VERSION \
                 --cluster-name pull-$TIMESTAMP \
-                --workers-count 2 \
+                --workers-count 1 \
                 --up --down --auto-approve --retry-on-tf-failure 3 \
                 --break-kubetest-on-upfail true \
                 --powervs-memory 32 \
@@ -79,3 +77,29 @@ presubmits:
                   echo "ERROR: k8s setup and quick run exited with code: $rc"
                   exit $rc
               fi
+
+  - name: pull-provider-ibmcloud-test-infra-kubetest2-secretmanager-build
+    cluster: k8s-infra-ppc64le-prow-build
+    always_run: true
+    decorate: true
+    decoration_config:
+      timeout: 30m
+    annotations:
+      testgrid-dashboards: ibm-ppc64le-presubmits
+      testgrid-tab-name: kubetest2-tf-secretmanager-build
+    spec:
+      containers:
+        - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
+          command:
+            - runner.sh
+          args:
+            - make
+            - build-deployer-tf
+            - build-secret-manager
+          resources:
+            requests:
+              cpu: 1
+              memory: "2Gi"
+            limits:
+              cpu: 1
+              memory: "2Gi"

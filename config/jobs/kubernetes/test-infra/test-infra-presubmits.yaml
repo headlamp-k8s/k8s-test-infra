@@ -6,6 +6,7 @@ presubmits:
     - master
     run_if_changed: 'gubernator|config/prow/config.yaml|config/jobs/.+\.yaml'
     decorate: true
+    optional: false
     labels:
       preset-service-account: "true"
     spec:
@@ -34,7 +35,7 @@ presubmits:
     run_if_changed: '^(config/prow/(config|plugins).yaml$|config/jobs/.*.yaml$)'
     spec:
       containers:
-      - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20250623-59a573d44
+      - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20260201-a50f011ce
         command:
         - checkconfig
         args:
@@ -62,41 +63,6 @@ presubmits:
             memory: "2Gi"
     annotations:
       testgrid-dashboards: presubmits-test-infra
-  - name: pull-test-infra-unit-test-race-detector-nonblocking
-    cluster: eks-prow-build-cluster
-    branches:
-    - master
-    always_run: true
-    decorate: true
-    optional: true
-    skip_report: false
-    labels:
-      # Python unit tests run in docker.
-      preset-dind-enabled: "true"
-    spec:
-      containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
-        command:
-        - runner.sh
-        args:
-        - make
-        - unit
-        env:
-        - name: PROW_UNIT_TEST_EXTRA_FLAGS
-          value: "-race"
-        # docker-in-docker needs privileged mode
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: "8"
-            memory: "8Gi"
-          limits:
-            cpu: "8"
-            memory: "8Gi"
-    annotations:
-      testgrid-dashboards: presubmits-test-infra
-      testgrid-tab-name: unit-test-race-detector-nonblocking
   - name: pull-test-infra-unit-test
     cluster: eks-prow-build-cluster
     branches:
@@ -108,7 +74,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -119,10 +85,10 @@ presubmits:
           privileged: true
         resources:
           requests:
-            cpu: "8"
+            cpu: "7"
             memory: "8Gi"
           limits:
-            cpu: "8"
+            cpu: "7"
             memory: "8Gi"
     annotations:
       testgrid-dashboards: presubmits-test-infra
@@ -139,7 +105,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -151,10 +117,10 @@ presubmits:
         resources:
           requests:
             # This job is very CPU intensive as it builds images in parallel.
-            cpu: "14"
+            cpu: "7"
             memory: "16Gi"
           limits:
-            cpu: "14"
+            cpu: "7"
             memory: "16Gi"
     annotations:
       testgrid-dashboards: presubmits-test-infra
@@ -170,7 +136,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -181,10 +147,10 @@ presubmits:
           privileged: true
         resources:
           requests:
-            cpu: "8"
+            cpu: "7"
             memory: "8Gi"
           limits:
-            cpu: "8"
+            cpu: "7"
             memory: "8Gi"
     annotations:
       testgrid-dashboards: presubmits-test-infra
@@ -200,7 +166,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -221,3 +187,33 @@ presubmits:
     annotations:
       testgrid-dashboards: presubmits-test-infra
       testgrid-tab-name: verify-cri-o
+
+  - name: pull-test-infra-kubekins-e2e-v2-image-build
+    cluster: k8s-infra-prow-build
+    annotations:
+      testgrid-dashboards: presubmits-test-infra
+    decorate: true
+    run_if_changed: '^images/kubekins-e2e-v2/'
+    spec:
+      serviceAccountName: prow-build
+      containers:
+        - image: gcr.io/k8s-staging-test-infra/image-builder:latest
+          command:
+            - /run.sh
+          args:
+            - --project=k8s-infra-e2e-boskos-101
+            - --env-passthrough=REGISTRY
+            - --variant=master
+            - images/kubekins-e2e-v2/
+          env:
+            - name: LOG_TO_STDOUT
+              value: "y"
+            - name: REGISTRY
+              value: gcr.io/k8s-infra-e2e-boskos-101
+          resources:
+            requests:
+              cpu: "1"
+              memory: 2Gi
+            limits:
+              cpu: "1"
+              memory: 2Gi

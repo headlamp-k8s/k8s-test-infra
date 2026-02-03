@@ -24,7 +24,7 @@ presubmits:
     labels:
       preset-azure-community: "true"
       preset-capz-containerd-1-7-latest: "true"
-      preset-capz-windows-2022-202503b: "true"
+      preset-capz-windows-2022: "true"
       preset-capz-windows-common-pull: "true"
       preset-dind-enabled: "true"
     optional: true
@@ -38,7 +38,7 @@ presubmits:
         - "env"
         - KUBERNETES_VERSION=latest-1.32
         - "./capz/run-capz-e2e.sh"
-        image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+        image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         name: ""
         resources:
           requests:

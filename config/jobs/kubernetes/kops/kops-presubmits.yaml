@@ -12,7 +12,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -20,11 +20,11 @@ presubmits:
         - "version-dist"
         resources:
           requests:
-            memory: "64Gi"
-            cpu: 8
+            memory: 16Gi
+            cpu: 7
           limits:
-            memory: "64Gi"
-            cpu: 8
+            memory: 16Gi
+            cpu: 7
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits
       testgrid-tab-name: build
@@ -40,7 +40,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -48,11 +48,11 @@ presubmits:
         - "test"
         resources:
           requests:
-            memory: "64Gi"
-            cpu: 8
+            memory: 12Gi
+            cpu: 7
           limits:
-            memory: "64Gi"
-            cpu: 8
+            memory: 12Gi
+            cpu: 7
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits
       testgrid-tab-name: test
@@ -73,7 +73,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         imagePullPolicy: Always
         command:
         - runner.sh
@@ -126,7 +126,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         imagePullPolicy: Always
         command:
         - runner.sh
@@ -179,7 +179,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         imagePullPolicy: Always
         command:
         - runner.sh
@@ -226,7 +226,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -255,7 +255,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -282,7 +282,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -311,7 +311,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -338,7 +338,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -346,11 +346,11 @@ presubmits:
         - "govet"
         resources:
           requests:
-            memory: "64Gi"
-            cpu: 8
+            memory: 8Gi
+            cpu: 4
           limits:
-            memory: "64Gi"
-            cpu: 8
+            memory: 8Gi
+            cpu: 4
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits
       testgrid-tab-name: verify-govet
@@ -367,7 +367,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -375,11 +375,11 @@ presubmits:
         - "verify-golangci-lint"
         resources:
           requests:
-            memory: "64Gi"
-            cpu: 8
+            memory: 12Gi
+            cpu: 7
           limits:
-            memory: "64Gi"
-            cpu: 8
+            memory: 12Gi
+            cpu: 7
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits
       testgrid-tab-name: verify-golangci-lint
@@ -395,7 +395,7 @@ presubmits:
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -403,11 +403,11 @@ presubmits:
         - "verify-hashes"
         resources:
           requests:
-            memory: "64Gi"
-            cpu: 8
+            memory: 12Gi
+            cpu: 7
           limits:
-            memory: "64Gi"
-            cpu: 8
+            memory: 12Gi
+            cpu: 7
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits
       testgrid-tab-name: verify-hashes
@@ -420,11 +420,11 @@ presubmits:
       preset-dind-enabled: "true"
     decorate: true
     decoration_config:
-      timeout: 20m
+      timeout: 30m
     path_alias: k8s.io/kops
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         args:
@@ -432,11 +432,11 @@ presubmits:
         - "verify-terraform"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: 2
+            memory: "4Gi"
+            cpu: 4
           limits:
-            memory: "2Gi"
-            cpu: 2
+            memory: "4Gi"
+            cpu: 4
         # docker-in-docker needs privileged mode
         securityContext:
           privileged: true
@@ -464,7 +464,7 @@ presubmits:
     spec:
       serviceAccountName: k8s-kops-test
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         imagePullPolicy: Always
         command:
         - runner.sh
@@ -492,3 +492,121 @@ presubmits:
       testgrid-dashboards: kops-presubmits, presubmits-kops, sig-cluster-lifecycle-kops
       testgrid-days-of-results: '90'
       testgrid-tab-name: pull-kops-kubernetes-e2e-ubuntu-gce-build
+  - name: pull-kops-e2e-kubernetes-azure
+    branches:
+    - master
+    always_run: false
+    labels:
+      preset-service-account: "true"
+      preset-kops-azure-cred-wi: "true"
+      preset-dind-enabled: "true"
+    cluster: k8s-infra-prow-build
+    decorate: true
+    decoration_config:
+      timeout: 90m
+    path_alias: k8s.io/kops
+    spec:
+      serviceAccountName: azure
+      containers:
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
+        imagePullPolicy: Always
+        command:
+        - runner.sh
+        args:
+        - bash
+        - -c
+        - |
+          make test-e2e-install
+          kubetest2 kops \
+          -v 2 \
+          --up --build --down \
+          --cloud-provider=azure \
+          --cluster-name=e2e-test-azure.k8s \
+          --env KOPS_FEATURE_FLAGS=Azure \
+          --env JOB_NAME=pull-kops-e2e-kubernetes-azure \
+          --create-args "--networking=cilium" \
+          --kubernetes-version=https://dl.k8s.io/release/stable.txt \
+          --kops-binary-path=/home/prow/go/src/k8s.io/kops/.build/dist/linux/amd64/kops \
+          --test=kops \
+          -- \
+          --test-package-marker=stable.txt \
+          --parallel 25
+        # docker-in-docker needs privileged mode
+        securityContext:
+          privileged: true
+        resources:
+          limits:
+            cpu: "4"
+            memory: "6Gi"
+          requests:
+            cpu: "4"
+            memory: "6Gi"
+    annotations:
+      testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits
+      testgrid-tab-name: e2e-azure
+  - name: pull-kops-e2e-baremetal
+    branches:
+    - master
+    always_run: false
+    labels:
+      preset-dind-enabled: "true"
+    cluster: k8s-infra-prow-build
+    decorate: true
+    decoration_config:
+      timeout: 90m
+    path_alias: k8s.io/kops
+    spec:
+      nodeSelector:
+        cloud.google.com/machine-family: c4 # this node type supports nested virtualization
+      containers:
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
+        imagePullPolicy: Always
+        command:
+        - runner.sh
+        args:
+        - tests/e2e/scenarios/bare-metal/run-test
+        # docker-in-docker needs privileged mode
+        securityContext:
+          privileged: true
+        resources:
+          limits:
+            cpu: "7"
+            memory: "25Gi"
+          requests:
+            cpu: "7"
+            memory: "25Gi"
+    annotations:
+      testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits
+  - name: pull-kops-e2e-baremetal-ipv6
+    branches:
+    - master
+    always_run: false
+    labels:
+      preset-dind-enabled: "true"
+    cluster: k8s-infra-prow-build
+    decorate: true
+    decoration_config:
+      timeout: 90m
+    path_alias: k8s.io/kops
+    spec:
+      nodeSelector:
+        cloud.google.com/machine-family: c4 # this node type supports nested virtualization
+      containers:
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
+        imagePullPolicy: Always
+        command:
+        - runner.sh
+        args:
+        - tests/e2e/scenarios/bare-metal/scenario-ipv6
+        # docker-in-docker needs privileged mode
+        securityContext:
+          privileged: true
+        resources:
+          limits:
+            cpu: "7"
+            memory: "25Gi"
+          requests:
+            cpu: "7"
+            memory: "25Gi"
+    annotations:
+      testgrid-dashboards: sig-cluster-lifecycle-kops, presubmits-kops, kops-presubmits

@@ -4,6 +4,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -12,7 +13,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -40,6 +41,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -47,7 +49,7 @@ presubmits:
       preset-service-account: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -70,6 +72,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -77,7 +80,7 @@ presubmits:
       preset-service-account: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -99,6 +102,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -117,7 +121,7 @@ presubmits:
       path_alias: k8s.io/test-infra
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -153,6 +157,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -162,7 +167,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -197,6 +202,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -206,7 +212,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
         args:
@@ -241,6 +247,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -249,14 +256,14 @@ presubmits:
       preset-k8s-ssh: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         env:
         - name: ZONE
           value: us-central1-a
         - name: IMAGE_FAMILY
-          value: cos-stable
+          value: pipeline-1-33-amd64
         - name: IMAGE_PROJECT
-          value: cos-cloud
+          value: ubuntu-os-gke-cloud
         - name: BOSKOS_PROJECT_TYPE
           value: gce-project
         command:
@@ -281,6 +288,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -290,9 +298,10 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
+        # TODO: we need to specify to only use cgroupv2 images, but for now allow both v1 and v2
         args:
         - bash
         - -c
@@ -306,8 +315,8 @@ presubmits:
           --gcp-node-image=ubuntu
           --gcp-zone=us-central1-b
           --ginkgo-parallel=30
-          --image-family=pipeline-1-24
-          --image-project=ubuntu-os-gke-cloud
+          --image-family=ubuntu-2404-lts-amd64
+          --image-project=ubuntu-os-cloud
           --test_args=--ginkgo.focus=NodeProblemDetector
           --timeout=60m
         resources:
@@ -327,6 +336,7 @@ presubmits:
     cluster: k8s-infra-prow-build
     branches:
     - master
+    - ^release-.*$
     always_run: true
     decorate: true
     path_alias: k8s.io/node-problem-detector
@@ -336,9 +346,10 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
         - runner.sh
+        # TODO: we need to specify to only use cgroupv2 images, but for now allow both v1 and v2
         args:
         - bash
         - -c
@@ -352,8 +363,8 @@ presubmits:
           --gcp-node-image=ubuntu
           --gcp-zone=us-central1-b
           --ginkgo-parallel=30
-          --image-family=pipeline-1-24
-          --image-project=ubuntu-os-gke-cloud
+          --image-family=ubuntu-2404-lts-amd64
+          --image-project=ubuntu-os-cloud
           --test_args=--ginkgo.focus=NodeProblemDetector
           --timeout=60m
         resources:

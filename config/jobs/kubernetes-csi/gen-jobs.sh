@@ -24,29 +24,29 @@ base="$(dirname $0)"
 # irrelevant because the prow.sh script will pick a suitable KinD
 # image or build from source.
 k8s_versions="
-1.30
-1.31
 1.32
+1.33
+1.34
 "
 
 # All the deployment versions we're testing.
 deployment_versions="
-1.30
-1.31
 1.32
+1.33
+1.34
 "
 
 # The experimental version for which jobs are optional.
-experimental_k8s_version="1.32"
+experimental_k8s_version="1.34"
 
 # The latest stable Kubernetes version for testing alpha jobs
-latest_stable_k8s_version="1.31"
+latest_stable_k8s_version="1.33"
 
 # Tag of the hostpath driver we should use for sidecar pull jobs
-hostpath_driver_version="v1.15.0"
+hostpath_driver_version="v1.17.0"
 
 # We need this image because it has Docker in Docker and go.
-dind_image="gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master"
+dind_image="gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master"
 
 # All kubernetes-csi repos which are part of the hostpath driver example.
 # For these repos we generate the full test matrix. For each entry here
@@ -63,6 +63,7 @@ livenessprobe
 node-driver-registrar
 lib-volume-populator
 volume-data-source-validator
+external-health-monitor
 "
 
 # All kubernetes-csi repos for which want to define pull tests for
@@ -88,7 +89,6 @@ single_kubernetes_repos="
 
 # kubernetes-csi repos which only need unit testing.
 unit_testing_repos="
-external-health-monitor
 csi-test
 csi-release-tools
 csi-lib-utils
@@ -396,6 +396,8 @@ EOF
           value: "$kubernetes.0"
         - name: CSI_PROW_KUBERNETES_DEPLOYMENT
           value: "$deployment"
+        - name: CSI_PROW_E2E_VERSION
+          value: "release-$deployment"
         - name: CSI_PROW_DEPLOYMENT_SUFFIX
           value: "$deployment_suffix"
         - name: CSI_PROW_DRIVER_VERSION
@@ -825,6 +827,8 @@ EOF
           value: "$latest_stable_k8s_version"
         - name: CSI_PROW_DRIVER_VERSION
           value: "$hostpath_driver_version"
+        - name: CSI_PROW_E2E_VERSION
+          value: "release-$deployment"
         - name: CSI_PROW_TESTS
           value: "unit sanity parallel"
         - name: CSI_SNAPSHOTTER_VERSION

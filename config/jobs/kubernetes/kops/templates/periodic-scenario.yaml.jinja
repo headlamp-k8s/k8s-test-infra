@@ -5,10 +5,9 @@
   labels:
     preset-service-account: "true"
     preset-aws-ssh: "true"
-    {%- if build_cluster == "default" %}
-    preset-aws-credential: "true"
+    {%- if build_cluster == "k8s-infra-kops-prow-build" %}
+    preset-k8s-kops-aws-credential: "true"
     {%- endif %}
-    preset-dind-enabled: "true"
   max_concurrency: 1
   decorate: true
   decoration_config:
@@ -19,6 +18,16 @@
     base_ref: master
     workdir: true
     path_alias: k8s.io/kops
+  {%- if extra_refs %}
+  {%- for ref in extra_refs %}
+  - org: {{ ref.org }}
+    repo: {{ ref.repo }}
+    base_ref: {{ ref.base_ref }}
+    {%- if ref.path_alias %}
+    path_alias: {{ ref.path_alias }}
+    {%- endif %}
+  {%- endfor %}
+  {%- endif %}
   spec:
     {%- if build_cluster != "default" %}
     serviceAccountName: prowjob-default-sa

@@ -9,6 +9,10 @@ postsubmits:
       decorate: true
       decoration_config:
         timeout: 5h
+      rerun_auth_config:
+        github_team_slugs:
+          - org: kubernetes-sigs
+            slug: cluster-api-provider-aws-maintainers
       max_concurrency: 1
       labels:
         preset-dind-enabled: "true"
@@ -18,7 +22,7 @@ postsubmits:
         preset-aws-credential: "true"
       spec:
         containers:
-          - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.30
+          - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250714-70266d743a-1.30
             command:
               - "runner.sh"
               - "./scripts/ci-e2e.sh"
@@ -53,6 +57,10 @@ postsubmits:
       decorate: true
       decoration_config:
         timeout: 5h
+      rerun_auth_config:
+        github_team_slugs:
+          - org: kubernetes-sigs
+            slug: cluster-api-provider-aws-maintainers
       max_concurrency: 1
       labels:
         preset-dind-enabled: "true"
@@ -62,7 +70,7 @@ postsubmits:
         preset-aws-credential: "true"
       spec:
         containers:
-          - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.30
+          - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250714-70266d743a-1.30
             command:
               - "runner.sh"
               - "./scripts/ci-e2e-eks.sh"
@@ -95,6 +103,10 @@ postsubmits:
       decorate: true
       decoration_config:
         timeout: 5h
+      rerun_auth_config:
+        github_team_slugs:
+          - org: kubernetes-sigs
+            slug: cluster-api-provider-aws-maintainers
       max_concurrency: 1
       labels:
         preset-dind-enabled: "true"
@@ -104,7 +116,7 @@ postsubmits:
         preset-aws-credential: "true"
       spec:
         containers:
-          - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.30
+          - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250714-70266d743a-1.30
             command:
               - "runner.sh"
               - "./scripts/ci-conformance.sh"

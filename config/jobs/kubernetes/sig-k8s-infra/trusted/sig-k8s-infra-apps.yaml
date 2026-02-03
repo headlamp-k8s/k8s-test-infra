@@ -28,10 +28,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -43,6 +41,13 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/codesearch/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-elekto
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -69,10 +74,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -84,6 +87,13 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/elekto/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-gcsweb
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -110,10 +120,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -125,6 +133,13 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/gcsweb/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-kettle
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -151,10 +166,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -166,12 +179,19 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/kettle/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-k8s-io
       cluster: k8s-infra-prow-build-trusted
       decorate: true
       max_concurrency: 1
       # intended for ignoring changes to README.md or OWNERS
-      run_if_changed: '^apps\/k8s-io\/(.*.yaml|deploy.sh|test.py)$'
+      run_if_changed: '^apps\/k8s-io\/(.*.yaml|deploy.sh)$'
       branches:
       - ^main$
       reporter_config:
@@ -192,10 +212,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -207,6 +225,13 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/k8s-io/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-kubernetes-external-secrets
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -233,10 +258,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -248,6 +271,13 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/kubernetes-external-secrets/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-perfdash
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -274,10 +304,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -289,6 +317,13 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/perfdash/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-publishing-bot
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -315,10 +350,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -330,6 +363,13 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/publishing-bot/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
     - name: post-k8sio-deploy-app-slack-infra
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -356,10 +396,8 @@ postsubmits:
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -371,3 +409,10 @@ postsubmits:
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/slack-infra/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi

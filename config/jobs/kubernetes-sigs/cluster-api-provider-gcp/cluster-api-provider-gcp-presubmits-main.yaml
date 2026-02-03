@@ -4,22 +4,24 @@ presubmits:
     always_run: true
     optional: false
     decorate: true
+    decoration_config:
+      timeout: 3h
     path_alias: "sigs.k8s.io/cluster-api-provider-gcp"
     cluster: eks-prow-build-cluster
     branches:
     - ^main$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
         command:
         - "./scripts/ci-test.sh"
         resources:
           limits:
-            cpu: 4
-            memory: 4Gi
+            cpu: 7
+            memory: 16Gi
           requests:
-            cpu: 4
-            memory: 4Gi
+            cpu: 7
+            memory: 16Gi
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-cluster-api-provider-gcp
       testgrid-tab-name: pr-test
@@ -27,22 +29,24 @@ presubmits:
     always_run: true
     optional: false
     decorate: true
+    decoration_config:
+      timeout: 3h
     path_alias: "sigs.k8s.io/cluster-api-provider-gcp"
     cluster: eks-prow-build-cluster
     branches:
     - ^main$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
         command:
         - "./scripts/ci-build.sh"
         resources:
           limits:
-            cpu: 4
-            memory: 4Gi
+            cpu: 7
+            memory: 16Gi
           requests:
-            cpu: 4
-            memory: 4Gi
+            cpu: 7
+            memory: 16Gi
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-cluster-api-provider-gcp
       testgrid-tab-name: pr-build
@@ -51,6 +55,8 @@ presubmits:
     always_run: true
     optional: false
     decorate: true
+    decoration_config:
+      timeout: 3h
     labels:
       preset-dind-enabled: "true"
     path_alias: "sigs.k8s.io/cluster-api-provider-gcp"
@@ -58,7 +64,7 @@ presubmits:
     - ^main$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
         # docker-in-docker needs privileged mode
         securityContext:
           privileged: true
@@ -79,6 +85,8 @@ presubmits:
     always_run: true
     optional: false
     decorate: true
+    decoration_config:
+      timeout: 3h
     path_alias: "sigs.k8s.io/cluster-api-provider-gcp"
     cluster: eks-prow-build-cluster
     labels:
@@ -89,7 +97,7 @@ presubmits:
     - ^main$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
         command:
         - "runner.sh"
         - "make"
@@ -121,7 +129,7 @@ presubmits:
       timeout: 3h
     spec:
       containers:
-        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
           env:
             - name: "BOSKOS_HOST"
               value: "boskos.test-pods.svc.cluster.local"
@@ -164,7 +172,7 @@ presubmits:
       path_alias: "sigs.k8s.io/image-builder"
     spec:
       containers:
-        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
           env:
             - name: "BOSKOS_HOST"
               value: "boskos.test-pods.svc.cluster.local"
@@ -207,7 +215,7 @@ presubmits:
       timeout: 3h
     spec:
       containers:
-        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
           env:
             - name: "BOSKOS_HOST"
               value: "boskos.test-pods.svc.cluster.local"
@@ -245,7 +253,7 @@ presubmits:
       timeout: 3h
     spec:
       containers:
-        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
           env:
             - name: "BOSKOS_HOST"
               value: "boskos.test-pods.svc.cluster.local"
@@ -283,7 +291,7 @@ presubmits:
       timeout: 3h
     spec:
       containers:
-        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
           args:
             - runner.sh
             - "./scripts/ci-e2e.sh"
@@ -307,6 +315,8 @@ presubmits:
       testgrid-tab-name: pr-e2e-upgrade
   - name: pull-cluster-api-provider-gcp-apidiff
     decorate: true
+    decoration_config:
+      timeout: 3h
     path_alias: "sigs.k8s.io/cluster-api-provider-gcp"
     always_run: true
     optional: true
@@ -317,18 +327,18 @@ presubmits:
     - ^main$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
         command:
           - runner.sh
         args:
           - ./scripts/ci-apidiff.sh
         resources:
-          limits:
-            cpu: 4
-            memory: 4Gi
           requests:
-            cpu: 4
-            memory: 4Gi
+            cpu: 7
+            memory: 9Gi
+          limits:
+            cpu: 7
+            memory: 9Gi
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-cluster-api-provider-gcp
       testgrid-tab-name: pr-apidiff-main
@@ -336,6 +346,8 @@ presubmits:
     always_run: false
     optional: true
     decorate: true
+    decoration_config:
+      timeout: 3h
     path_alias: "sigs.k8s.io/cluster-api-provider-gcp"
     cluster: eks-prow-build-cluster
     extra_refs:
@@ -345,7 +357,7 @@ presubmits:
         path_alias: k8s.io/test-infra
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.31
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.33
         command:
         - runner.sh
         args:

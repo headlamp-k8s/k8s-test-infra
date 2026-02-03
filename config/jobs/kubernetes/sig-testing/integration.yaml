@@ -1,8 +1,7 @@
 presubmits:
   kubernetes/kubernetes:
-  # this replaces the bootstrap / scenario based job going forward
   - name: pull-kubernetes-integration
-    cluster: eks-prow-build-cluster
+    cluster: k8s-infra-prow-build
     always_run: true
     decorate: true
     skip_branches:
@@ -18,12 +17,9 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
-        env:
-        - name: KUBE_TIMEOUT
-          value: "-timeout=1h30m"
         args:
         - ./hack/jenkins/test-integration-dockerized.sh
         # docker-in-docker needs privileged mode
@@ -31,10 +27,10 @@ presubmits:
           privileged: true
         resources:
           limits:
-            cpu: 8
+            cpu: 7
             memory: 20Gi
           requests:
-            cpu: 8
+            cpu: 7
             memory: 20Gi
   - name: pull-kubernetes-integration-canary
     cluster: k8s-infra-prow-build
@@ -54,7 +50,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         env:
@@ -67,16 +63,18 @@ presubmits:
           privileged: true
         resources:
           limits:
-            cpu: 8
+            cpu: 7
             memory: 20Gi
           requests:
-            cpu: 8
+            cpu: 7
             memory: 20Gi
   - name: pull-kubernetes-integration-race
-    cluster: eks-prow-build-cluster
+    cluster: k8s-infra-prow-build
     always_run: false # Has known failures.
     optional: true
     decorate: true
+    decoration_config:
+      timeout: 90m
     skip_branches:
     - release-\d+.\d+ # per-release job
     annotations:
@@ -91,12 +89,12 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         env:
         - name: KUBE_TIMEOUT
-          value: "-timeout=1h30m"
+          value: "-timeout=30m"
         - name: KUBE_RACE
           value: "-race"
         args:
@@ -106,10 +104,10 @@ presubmits:
           privileged: true
         resources:
           limits:
-            cpu: 8
+            cpu: 7
             memory: 20Gi
           requests:
-            cpu: 8
+            cpu: 7
             memory: 20Gi
   - name: pull-kubernetes-integration-go-compatibility
     cluster: k8s-infra-prow-build
@@ -128,7 +126,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         command:
         - runner.sh
         env:
@@ -164,7 +162,7 @@ presubmits:
       preset-dind-enabled: "true"
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-go-canary
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-f10a7ebcce-go-canary
         command:
         - runner.sh
         args:
@@ -181,7 +179,7 @@ presubmits:
             memory: 15Gi
 periodics:
 - interval: 1h
-  cluster: eks-prow-build-cluster
+  cluster: k8s-infra-prow-build
   name: ci-kubernetes-integration-master
   decorate: true
   extra_refs:
@@ -201,7 +199,7 @@ periodics:
     description: "Ends up running: make test-integration"
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+    - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
       command:
       - runner.sh
       args:
@@ -219,10 +217,54 @@ periodics:
         requests:
           cpu: 6
           memory: 20Gi
+    nodeSelector:
+      kubernetes.io/arch: amd64
+- interval: 1h
+  cluster: k8s-infra-prow-build
+  name: ci-kubernetes-integration-arm64-master
+  decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: kubernetes
+    base_ref: master
+    path_alias: k8s.io/kubernetes
+  labels:
+    preset-dind-enabled: "true"
+  annotations:
+    fork-per-release: "true"
+    fork-per-release-periodic-interval: 2h 2h 6h 24h
+    testgrid-dashboards: sig-release-master-blocking
+    testgrid-tab-name: integration-arm64-master
+    testgrid-alert-email: release-team@kubernetes.io
+    description: "Ends up running: make test-integration on arm node"
+  spec:
+    containers:
+    - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
+      command:
+      - runner.sh
+      args:
+      - ./hack/jenkins/test-integration-dockerized.sh
+      env:
+      - name: SHORT
+        value: --short=false
+      # docker-in-docker needs privileged mode
+      securityContext:
+        privileged: true
+      resources:
+        limits:
+          cpu: 6
+          memory: 20Gi
+        requests:
+          cpu: 6
+          memory: 20Gi
+    nodeSelector:
+      kubernetes.io/arch: arm64
 - interval: 6h
-  cluster: eks-prow-build-cluster
+  cluster: k8s-infra-prow-build
   name: ci-kubernetes-integration-race-master
   decorate: true
+  decoration_config:
+    timeout: 90m
   extra_refs:
   - org: kubernetes
     repo: kubernetes
@@ -240,7 +282,7 @@ periodics:
     description: "Ends up running: make test-integration with race detection"
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+    - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
       command:
       - runner.sh
       args:
@@ -248,6 +290,8 @@ periodics:
       env:
       - name: SHORT
         value: --short=false
+      - name: KUBE_TIMEOUT
+        value: "-timeout=30m"
       - name: KUBE_RACE
         value: "-race"
       # docker-in-docker needs privileged mode

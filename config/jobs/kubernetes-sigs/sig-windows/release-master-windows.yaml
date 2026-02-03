@@ -27,13 +27,6 @@ presets:
   - name: WINDOWS_SERVER_VERSION
     value: "windows-2022"
 - labels:
-    preset-capz-windows-2022-202503b: "true"
-  env:
-  - name: WINDOWS_SERVER_VERSION
-    value: "windows-2022"
-  - name: IMAGE_VERSION
-    value: "1.32.3"
-- labels:
     preset-capz-windows-2025: "true"
   env:
   - name: GALLERY_IMAGE_NAME
@@ -91,61 +84,7 @@ periodics:
     preset-dind-enabled: "true"
     preset-kind-volume-mounts: "true"
     preset-capz-windows-common: "true"
-    preset-capz-windows-2022-202503b: "true"
-    preset-capz-containerd-1-7-latest: "true"
-    preset-azure-community: "true"
-  extra_refs:
-  - org: kubernetes-sigs
-    repo: cluster-api-provider-azure
-    base_ref: main
-    path_alias: sigs.k8s.io/cluster-api-provider-azure
-    workdir: false
-  - org: kubernetes-sigs
-    repo: windows-testing
-    base_ref: master
-    path_alias: sigs.k8s.io/windows-testing
-    workdir: true
-  - org: kubernetes-sigs
-    repo: cloud-provider-azure
-    base_ref: master
-    path_alias: sigs.k8s.io/cloud-provider-azure
-    workdir: false
-  spec:
-    serviceAccountName: azure
-    containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
-        command:
-          - "runner.sh"
-          - "env"
-          - "KUBERNETES_VERSION=latest" # fork-per-release-replacements only updates args / tags and not env vars so specify k8s-version here!
-          - "./capz/run-capz-e2e.sh"
-        securityContext:
-          privileged: true
-        resources:
-          # current recommendations are at least 1Gi /core
-          requests:
-            cpu: 2
-            memory: "9Gi"
-          limits:
-            cpu: 2
-            memory: "9Gi"
-  annotations:
-    fork-per-release: "true"
-    fork-per-release-replacements: "KUBERNETES_VERSION=latest -> KUBERNETES_VERSION=latest-{{.Version}}"
-    testgrid-alert-email: kubernetes-provider-azure@googlegroups.com, sig-windows-leads@kubernetes.io, release-team@kubernetes.io
-    testgrid-dashboards: sig-release-master-informing, sig-windows-master-release, sig-windows-signal
-    testgrid-tab-name: capz-windows-master
-- name: ci-kubernetes-e2e-capz-master-windows-containerd2
-  cluster: eks-prow-build-cluster
-  interval: 24h
-  decorate: true
-  decoration_config:
-    timeout: 4h
-  labels:
-    preset-dind-enabled: "true"
-    preset-kind-volume-mounts: "true"
-    preset-capz-windows-common: "true"
-    preset-capz-windows-2022-202503b: "true"
+    preset-capz-windows-2022: "true"
     preset-capz-containerd-2-0-latest: "true"
     preset-azure-community: "true"
   extra_refs:
@@ -167,7 +106,61 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
+        command:
+          - "runner.sh"
+          - "env"
+          - "KUBERNETES_VERSION=latest" # fork-per-release-replacements only updates args / tags and not env vars so specify k8s-version here!
+          - "./capz/run-capz-e2e.sh"
+        securityContext:
+          privileged: true
+        resources:
+          # current recommendations are at least 1Gi /core
+          requests:
+            cpu: 2
+            memory: "9Gi"
+          limits:
+            cpu: 2
+            memory: "9Gi"
+  annotations:
+    fork-per-release: "true"
+    fork-per-release-replacements: "KUBERNETES_VERSION=latest -> KUBERNETES_VERSION=latest-{{.Version}}"
+    testgrid-alert-email: kubernetes-provider-azure@googlegroups.com, sig-windows-leads@kubernetes.io, release-team@kubernetes.io
+    testgrid-dashboards: sig-release-master-informing, sig-windows-master-release, sig-windows-signal
+    testgrid-tab-name: capz-windows-master
+- name: ci-kubernetes-e2e-capz-master-windows-containerd17
+  cluster: eks-prow-build-cluster
+  interval: 24h
+  decorate: true
+  decoration_config:
+    timeout: 4h
+  labels:
+    preset-dind-enabled: "true"
+    preset-kind-volume-mounts: "true"
+    preset-capz-windows-common: "true"
+    preset-capz-windows-2022: "true"
+    preset-capz-containerd-1-7-latest: "true"
+    preset-azure-community: "true"
+  extra_refs:
+  - org: kubernetes-sigs
+    repo: cluster-api-provider-azure
+    base_ref: main
+    path_alias: sigs.k8s.io/cluster-api-provider-azure
+    workdir: false
+  - org: kubernetes-sigs
+    repo: windows-testing
+    base_ref: master
+    path_alias: sigs.k8s.io/windows-testing
+    workdir: true
+  - org: kubernetes-sigs
+    repo: cloud-provider-azure
+    base_ref: master
+    path_alias: sigs.k8s.io/cloud-provider-azure
+    workdir: false
+  spec:
+    serviceAccountName: azure
+    containers:
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
           - "runner.sh"
           - "env"
@@ -186,7 +179,7 @@ periodics:
   annotations:
     testgrid-alert-email: kubernetes-provider-azure@googlegroups.com, sig-windows-leads@kubernetes.io
     testgrid-dashboards: sig-windows-master-release, sig-windows-signal
-    testgrid-tab-name: capz-windows-master-containerd2
+    testgrid-tab-name: capz-windows-master-containerd17
 - name: ci-kubernetes-e2e-capz-master-windows-serial-slow
   cluster: eks-prow-build-cluster
   interval: 24h
@@ -198,8 +191,8 @@ periodics:
     preset-kind-volume-mounts: "true"
     preset-azure-community: "true"
     preset-capz-windows-common: "true"
-    preset-capz-windows-2022-202503b: "true"
-    preset-capz-containerd-1-7-latest: "true"
+    preset-capz-windows-2022: "true"
+    preset-capz-containerd-2-0-latest: "true"
     preset-capz-serial-slow: "true"
     preset-capz-gmsa-setup: "true"
   extra_refs:
@@ -220,7 +213,7 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
           - "runner.sh"
           - "env"
@@ -239,7 +232,9 @@ periodics:
           - name: GINKGO_FOCUS
             value: (\[sig-windows\]|\[sig-scheduling\].SchedulerPreemption|\[sig-apps\].CronJob).*(\[Serial\]|\[Slow\])|(\[Serial\]|\[Slow\]).*(\[Conformance\]|\[NodeConformance\])|\[sig-api-machinery\].Garbage.collector
           - name: GINKGO_SKIP
-            value: \[LinuxOnly\]|device.plugin.for.Windows|\[sig-autoscaling\].\[Feature:HPA\]|should.be.able.to.gracefully.shutdown.pods.with.various.grace.periods|\[Alpha\]|\[FeatureGate:SchedulerAsyncPreemption\] \[Beta\]
+            value: \[LinuxOnly\]|device.plugin.for.Windows|\[sig-autoscaling\].\[Feature:HPA\]|\[Alpha\]|\[FeatureGate:SchedulerAsyncPreemption\]|\[Beta\]|when.running.a.container.with.a.new.image
+          - name: NODE_FEATURE_GATES
+            value: "WindowsGracefulNodeShutdown=true"
   annotations:
     testgrid-alert-email: kubernetes-provider-azure@googlegroups.com, sig-windows-leads@kubernetes.io
     testgrid-dashboards: sig-windows-master-release, sig-windows-signal
@@ -255,7 +250,7 @@ periodics:
     preset-kind-volume-mounts: "true"
     preset-azure-community: "true"
     preset-capz-windows-common: "true"
-    preset-capz-windows-2022-202503b: "true"
+    preset-capz-windows-2022: "true"
     preset-capz-containerd-1-7-latest: "true"
     preset-capz-serial-slow: "true"
   extra_refs:
@@ -276,7 +271,7 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
           - "runner.sh"
           - "./capz/run-capz-e2e.sh"
@@ -309,7 +304,7 @@ periodics:
     preset-kind-volume-mounts: "true"
     preset-azure-community: "true"
     preset-capz-windows-common: "true"
-    preset-capz-windows-2022-202503b: "true"
+    preset-capz-windows-2022: "true"
   extra_refs:
   - org: kubernetes-sigs
     repo: cluster-api-provider-azure
@@ -328,7 +323,7 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
           - "runner.sh"
           - "env"
@@ -361,7 +356,7 @@ periodics:
     preset-kind-volume-mounts: "true"
     preset-azure-community: "true"
     preset-capz-windows-common: "true"
-    preset-capz-windows-2022-202503b: "true"
+    preset-capz-windows-2022: "true"
   extra_refs:
   - org: kubernetes-sigs
     repo: cluster-api-provider-azure
@@ -380,7 +375,7 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
           - "runner.sh"
           - "env"
@@ -420,9 +415,9 @@ periodics:
     preset-dind-enabled: "true"
     preset-kind-volume-mounts: "true"
     preset-azure-community: "true"
+    preset-capz-containerd-2-0-latest: "true"
     preset-capz-windows-common: "true"
-    preset-capz-windows-2022-202503b: "true"
-    preset-capz-containerd-1-7-latest: "true"
+    preset-capz-windows-2022: "true"
   extra_refs:
   - org: kubernetes-sigs
     repo: cluster-api-provider-azure
@@ -441,7 +436,7 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
           - "runner.sh"
           - "env"
@@ -469,16 +464,16 @@ periodics:
     testgrid-tab-name: capz-master-windows-nodelogquery
 - name: ci-kubernetes-e2e-capz-master-windows-2025
   cluster: eks-prow-build-cluster
-  interval: 48h
+  interval: 24h
   decorate: true
   decoration_config:
     timeout: 4h
   labels:
     preset-dind-enabled: "true"
     preset-kind-volume-mounts: "true"
+    preset-capz-containerd-2-0-latest: "true"
     preset-capz-windows-common: "true"
     preset-capz-windows-2025: "true"
-    preset-capz-containerd-1-7-latest: "true"
     preset-azure-community: "true"
   extra_refs:
   - org: kubernetes-sigs
@@ -499,7 +494,7 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         command:
           - "runner.sh"
           - "env"

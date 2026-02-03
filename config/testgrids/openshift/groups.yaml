@@ -13,6 +13,7 @@ dashboard_groups:
   - redhat-openshift-lp-interop-release-4.18-informing
   - redhat-openshift-lp-interop-release-4.19-informing
   - redhat-openshift-lp-interop-release-4.20-informing
+  - redhat-openshift-lp-interop-release-4.21-informing
   - redhat-openshift-lp-rosa-classic-release-4.14-informing
   - redhat-openshift-lp-rosa-classic-release-4.15-informing
   - redhat-openshift-lp-rosa-classic-release-4.16-informing
@@ -21,10 +22,12 @@ dashboard_groups:
   - redhat-openshift-lp-rosa-hypershift-release-4.15-informing
   - redhat-openshift-lp-rosa-hypershift-release-4.16-informing
   - redhat-openshift-lp-rosa-hypershift-release-4.17-informing
+  - redhat-openshift-lp-rosa-hypershift-release-4.18-informing
+  - redhat-openshift-lp-rosa-hypershift-release-4.19-informing
+  - redhat-openshift-lp-rosa-hypershift-release-4.20-informing
   - redhat-openshift-ocp-release-4.10-blocking
   - redhat-openshift-ocp-release-4.10-broken
   - redhat-openshift-ocp-release-4.10-informing
-  - redhat-openshift-ocp-release-4.11-blocking
   - redhat-openshift-ocp-release-4.11-informing
   - redhat-openshift-ocp-release-4.12-blocking
   - redhat-openshift-ocp-release-4.12-informing
@@ -44,8 +47,11 @@ dashboard_groups:
   - redhat-openshift-ocp-release-4.19-informing
   - redhat-openshift-ocp-release-4.20-blocking
   - redhat-openshift-ocp-release-4.20-informing
+  - redhat-openshift-ocp-release-4.21-blocking
+  - redhat-openshift-ocp-release-4.21-informing
+  - redhat-openshift-ocp-release-4.22-blocking
+  - redhat-openshift-ocp-release-4.22-informing
   - redhat-openshift-ocp-release-4.5-informing
-  - redhat-openshift-ocp-release-4.6-blocking
   - redhat-openshift-ocp-release-4.6-informing
   - redhat-openshift-ocp-release-4.7-blocking
   - redhat-openshift-ocp-release-4.7-informing
@@ -74,6 +80,10 @@ dashboard_groups:
   - redhat-openshift-okd-release-4.19-informing
   - redhat-openshift-okd-release-4.20-blocking
   - redhat-openshift-okd-release-4.20-informing
+  - redhat-openshift-okd-release-4.21-blocking
+  - redhat-openshift-okd-release-4.21-informing
+  - redhat-openshift-okd-release-4.22-blocking
+  - redhat-openshift-okd-release-4.22-informing
   - redhat-openshift-okd-release-4.6-informing
   - redhat-openshift-okd-release-4.7-informing
   - redhat-openshift-okd-release-4.8-informing

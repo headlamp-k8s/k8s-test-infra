@@ -24,15 +24,15 @@ SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 readonly OUTPUT="${SCRIPT_DIR}/sig-k8s-infra-apps.yaml"
 # list of subdirs in kubernetes/k8s.io/apps
 readonly APPS=(
-    codesearch
-    elekto
-    gcsweb
-    kettle
-    k8s-io
-    kubernetes-external-secrets
-    perfdash
-    publishing-bot
-    slack-infra
+  codesearch
+  elekto
+  gcsweb
+  kettle
+  k8s-io
+  kubernetes-external-secrets
+  perfdash
+  publishing-bot
+  slack-infra
 )
 
 cat >"${OUTPUT}" <<EOF
@@ -43,7 +43,7 @@ postsubmits:
 EOF
 
 for app in "${APPS[@]}"; do
-    cat >>"${OUTPUT}" <<EOF
+  cat >>"${OUTPUT}" <<EOF
     - name: post-k8sio-deploy-app-${app}
       cluster: k8s-infra-prow-build-trusted
       decorate: true
@@ -70,10 +70,8 @@ for app in "${APPS[@]}"; do
         testgrid-num-failures-to-alert: '1'
       rerun_auth_config:
         github_team_slugs:
-        # proxy for sig-k8s-infra-oncall
         - org: kubernetes
           slug: sig-k8s-infra-leads
-        # proxy for test-infra-oncall
         - org: kubernetes
           slug: test-infra-admins
         # TODO: sig-specific team in charge of this app
@@ -85,5 +83,12 @@ for app in "${APPS[@]}"; do
         - image: gcr.io/k8s-staging-infra-tools/k8s-infra:latest
           command:
           - ./apps/${app}/deploy.sh
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
 EOF
 done

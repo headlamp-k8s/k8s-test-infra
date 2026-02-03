@@ -32,10 +32,11 @@ import (
 
 	"github.com/GoogleCloudPlatform/testgrid/config"
 	config_pb "github.com/GoogleCloudPlatform/testgrid/pb/config"
-	"k8s.io/test-infra/testgrid/pkg/configurator/configurator"
-	"k8s.io/test-infra/testgrid/pkg/configurator/options"
 	prow_config "sigs.k8s.io/prow/pkg/config"
 	"sigs.k8s.io/prow/pkg/flagutil"
+
+	"k8s.io/test-infra/testgrid/pkg/configurator/configurator"
+	"k8s.io/test-infra/testgrid/pkg/configurator/options"
 
 	configflagutil "sigs.k8s.io/prow/pkg/flagutil/config"
 )
@@ -47,14 +48,10 @@ type SQConfig struct {
 var (
 	companies = []string{
 		"amazon",
-		"canonical",
 		"cos",
 		"containerd",
-		"cri-o",
 		"istio",
-		"googleoss",
 		"google",
-		"kopeio",
 		"redhat",
 		"ibm",
 		"vmware",
@@ -64,6 +61,8 @@ var (
 	}
 	orgs = []string{
 		"conformance",
+		"minikube",
+		"cluster-api",
 		"kops",
 		"presubmits",
 		"sig",

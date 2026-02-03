@@ -4,13 +4,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Adds API review process description to kind/api-change PRs
     testgrid-tab-name: api-review-help
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -43,6 +48,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -52,13 +64,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Adds stable metrics review documentation to area/stable-metrics PRs
     testgrid-tab-name: stable-metrics-help
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -82,6 +99,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -91,13 +115,18 @@ periodics:
   interval: 10m
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: A sample job to make sure things work
     testgrid-tab-name: cla
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -125,6 +154,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -134,13 +170,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Closes rotten issues after 30d of inactivity
     testgrid-tab-name: close-issues
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -153,6 +194,7 @@ periodics:
         -repo:kubernetes-sigs/kind
         -repo:kubernetes/kubectl
         -repo:kubernetes/steering
+        -repo:kubernetes-sigs/ingate
         -label:lifecycle/frozen
         -label:"help wanted"
         -label:"good first issue"
@@ -186,6 +228,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -195,13 +244,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Closes rotten PRs after 30d of inactivity
     testgrid-tab-name: close-prs
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -214,6 +268,7 @@ periodics:
         -repo:kubernetes-sigs/kind
         -repo:kubernetes/ingress-nginx
         -repo:kubernetes/steering
+        -repo:kubernetes-sigs/ingate
         -label:lifecycle/frozen
         label:lifecycle/rotten
       - --updated=720h
@@ -243,74 +298,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
-    volumes:
-    - name: token
-      secret:
-        secretName: k8s-triage-robot-github-token
-
-- name: ci-k8s-triage-robot-retester
-  interval: 20m  # Retest at most 1 PR per 20m, which should not DOS the queue.
-  cluster: k8s-infra-prow-build-trusted
-  decorate: true
-  annotations:
-    testgrid-dashboards: sig-contribex-k8s-triage-robot
-    testgrid-tab-name: retester
-    description: Automatically /retest for approved PRs that are failing tests
-  spec:
-    containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
-      command:
-      - commenter
-      args:
-      - |-
-        --query=is:pr
-        -label:do-not-merge
-        -label:do-not-merge/blocked-paths
-        -label:do-not-merge/cherry-pick-not-approved
-        -label:do-not-merge/contains-merge-commits
-        -label:do-not-merge/hold
-        -label:do-not-merge/invalid-commit-message
-        -label:do-not-merge/invalid-owners-file
-        -label:do-not-merge/needs-sig
-        -label:do-not-merge/needs-kind
-        -label:do-not-merge/release-note-label-needed
-        -label:do-not-merge/work-in-progress
-        label:lgtm
-        label:approved
-        label:"cncf-cla: yes"
-        status:failure
-        -label:needs-rebase
-        -label:needs-ok-to-test
-        -label:"cncf-cla: no"
-        repo:kubernetes/kops
-        repo:kubernetes/kubernetes
-        repo:kubernetes/test-infra
-      - --token=/etc/github-token/token
-      - --endpoint=http://ghproxy.test-pods.svc.cluster.local
-      - |-
-        --comment=The Kubernetes project has merge-blocking tests that are currently too flaky to consistently pass.
-
-        This bot retests PRs for certain kubernetes repos according to the following rules:
-        - The PR does have any `do-not-merge/*` labels
-        - The PR does not have the `needs-ok-to-test` label
-        - The PR is mergeable (does not have a `needs-rebase` label)
-        - The PR is approved (has `cncf-cla: yes`, `lgtm`, `approved` labels)
-        - The PR is failing tests required for merge
-
-        You can:
-        - Review the [full test history](https://prow.k8s.io/pr-history/?org={{.Org}}&repo={{.Repo}}&pr={{.Number}}) for this PR
-        - Prevent this bot from retesting with `/lgtm cancel` or `/hold`
-        - Help make our tests less flaky by following our [Flaky Tests Guide][1]
-
-        /retest
-
-        [1]: https://git.k8s.io/community/contributors/devel/sig-testing/flaky-tests.md
-      - --template
-      - --ceiling=1
-      - --confirm
-      volumeMounts:
-      - name: token
-        mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -320,13 +314,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Adds lifecycle/rotten to stale issues after 30d of inactivity
     testgrid-tab-name: rotten-issues
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -339,6 +338,7 @@ periodics:
         -repo:kubernetes-sigs/kind
         -repo:kubernetes/ingress-nginx
         -repo:kubernetes/steering
+        -repo:kubernetes-sigs/ingate
         -label:lifecycle/frozen
         -label:lifecycle/rotten
         -label:"help wanted"
@@ -372,6 +372,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -381,13 +388,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Adds lifecycle/rotten to stale PRs after 30d of inactivity
     testgrid-tab-name: rotten-prs
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -400,6 +412,7 @@ periodics:
         -repo:kubernetes-sigs/kind
         -repo:kubernetes/ingress-nginx
         -repo:kubernetes/steering
+        -repo:kubernetes-sigs/ingate
         -label:lifecycle/frozen
         -label:lifecycle/rotten
         label:lifecycle/stale
@@ -430,6 +443,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -439,13 +459,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Adds lifecycle/stale to issues after 90d of inactivity
     testgrid-tab-name: stale-issues
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -458,6 +483,7 @@ periodics:
         -repo:kubernetes-sigs/kind
         -repo:kubernetes/ingress-nginx
         -repo:kubernetes/steering
+        -repo:kubernetes-sigs/ingate
         -label:lifecycle/frozen
         -label:lifecycle/stale
         -label:lifecycle/rotten
@@ -491,6 +517,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -500,13 +533,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Adds lifecycle/stale to PRs after 90d of inactivity
     testgrid-tab-name: stale-prs
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -519,6 +557,7 @@ periodics:
         -repo:kubernetes-sigs/kind
         -repo:kubernetes/ingress-nginx
         -repo:kubernetes/steering
+        -repo:kubernetes-sigs/ingate
         -label:lifecycle/frozen
         -label:lifecycle/stale
         -label:lifecycle/rotten
@@ -549,6 +588,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -558,13 +604,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Removes lifecycle/frozen from PRs
     testgrid-tab-name: thaw-prs
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -597,6 +648,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -606,13 +664,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Removes the triage/accepted label after 1 year of inactivity
     testgrid-tab-name: re-triage
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -648,6 +711,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -657,13 +727,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Removes the triage/accepted label on important issues after 3 months of inactivity
     testgrid-tab-name: re-triage-important
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -700,6 +775,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -709,13 +791,18 @@ periodics:
   interval: 1h
   cluster: k8s-infra-prow-build-trusted
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Removes the triage/accepted label on critical issues after 1 month of inactivity
     testgrid-tab-name: re-triage-critical
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/commenter:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/commenter:v20251212-3f863f26d7
       command:
       - commenter
       args:
@@ -752,6 +839,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:
@@ -763,12 +857,17 @@ periodics:
   labels:
     preset-service-account: "true"
   decorate: true
+  extra_refs:
+  - org: kubernetes
+    repo: org
+    base_ref: main
+    path_alias: k8s.io/org
   annotations:
     testgrid-dashboards: sig-contribex-k8s-triage-robot
     description: Creates github issues based on data from various 'IssueSource's.
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/issue-creator:v20250306-095fc63a16
+    - image: gcr.io/k8s-staging-test-infra/issue-creator:v20251212-3f863f26d7
       command:
       - issue-creator
       args:
@@ -783,41 +882,13 @@ periodics:
       volumeMounts:
       - name: token
         mountPath: /etc/github-token
-    volumes:
-    - name: token
-      secret:
-        secretName: k8s-triage-robot-github-token
-
-# periodically file / close bugs for repos based on presence of SECURITY_CONTACTS
-- name: secping
-  interval: 24h
-  cluster: k8s-infra-prow-build-trusted
-  decorate: true
-  annotations:
-    testgrid-dashboards: sig-contribex-k8s-triage-robot
-    description: files bugs for SECURITY_CONTACTS
-    testgrid-tab-name: secping
-  extra_refs:
-  - base_ref: main
-    org: justaugustus
-    repo: secping
-  spec:
-    containers:
-    - command:
-      - go
-      - run
-      - .
-      - -d
-      - --confirm
-      - --token-path=/etc/github-token/token
-      - --skip-emails
-      env:
-      - name: GO111MODULE
-        value: "on"
-      image: golang:latest
-      volumeMounts:
-      - name: token
-        mountPath: /etc/github-token
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 1
+          memory: 2Gi
     volumes:
     - name: token
       secret:

@@ -3,6 +3,8 @@ presubmits:
   - name: pull-cloud-provider-aws-e2e
     cluster: eks-prow-build-cluster
     decorate: true
+    decoration_config:
+      timeout: 4h
     skip_if_only_changed: "^docs/|^\\.github/|\\.(md)$|^(LICENSE|OWNERS)$"
     skip_branches:
     - gh-pages
@@ -13,14 +15,14 @@ presubmits:
     spec:
       serviceAccountName: aws-shared-testing-role
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         resources:
           limits:
             cpu: 2
-            memory: 4Gi
+            memory: 6Gi
           requests:
             cpu: 2
-            memory: 4Gi
+            memory: 6Gi
         command:
         - runner.sh
         args:
@@ -62,7 +64,7 @@ presubmits:
     spec:
       serviceAccountName: aws-shared-testing-role
       containers:
-        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
           command:
             - runner.sh
           args:
@@ -112,10 +114,10 @@ presubmits:
             privileged: true
           resources:
             limits:
-              cpu: 8
+              cpu: 7
               memory: 10Gi
             requests:
-              cpu: 8
+              cpu: 7
               memory: 10Gi
 
   - name: pull-cloud-provider-aws-e2e-kubetest2-quick
@@ -145,7 +147,7 @@ presubmits:
     spec:
       serviceAccountName: aws-shared-testing-role
       containers:
-        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+        - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
           command:
             - runner.sh
           args:
@@ -196,8 +198,8 @@ presubmits:
             privileged: true
           resources:
             limits:
-              cpu: 8
+              cpu: 7
               memory: 10Gi
             requests:
-              cpu: 8
+              cpu: 7
               memory: 10Gi

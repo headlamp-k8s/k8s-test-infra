@@ -1,10 +1,11 @@
 periodics:
 - name: ci-kubernetes-e2e-gci-gce-scalability-networkpolicies
   cluster: k8s-infra-prow-build
-  interval: 6h
+  interval: 24h
   tags:
     - "perfDashPrefix: networkpolicies"
-    - "perfDashJobType: networkpolicies"
+    - "perfDashJobType: performance"
+    - "perfDashBuildsCount: 500"
   labels:
     preset-service-account: "true"
     preset-k8s-ssh: "true"
@@ -28,7 +29,7 @@ periodics:
     testgrid-tab-name: kube-network-policies
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
       command:
       - runner.sh
       - /workspace/scenarios/kubernetes_e2e.py
@@ -114,7 +115,7 @@ periodics:
     testgrid-num-failures-to-alert: '2'
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
       command:
       - runner.sh
       - /workspace/scenarios/kubernetes_e2e.py
@@ -182,16 +183,24 @@ periodics:
   decorate: true
   decoration_config:
     timeout: 480m
-  path_alias: k8s.io/kops
   extra_refs:
+  - org: kubernetes
+    repo: kubernetes
+    base_ref: master
+    path_alias: k8s.io/kubernetes
   - org: kubernetes
     repo: perf-tests
     base_ref: master
     path_alias: k8s.io/perf-tests
+  - org: kubernetes
+    repo: kops
+    base_ref: master
+    path_alias: k8s.io/kops
+    workdir: true
   spec:
     serviceAccountName: k8s-kops-test
     containers:
-    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
       imagePullPolicy: Always
       command:
       - runner.sh

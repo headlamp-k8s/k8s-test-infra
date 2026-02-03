@@ -16,6 +16,7 @@
 - [Labels that apply to kubernetes-sigs/cluster-api-provider-azure, for both issues and PRs](#labels-that-apply-to-kubernetes-sigscluster-api-provider-azure-for-both-issues-and-prs)
 - [Labels that apply to kubernetes-sigs/cluster-api-provider-gcp, for both issues and PRs](#labels-that-apply-to-kubernetes-sigscluster-api-provider-gcp-for-both-issues-and-prs)
 - [Labels that apply to kubernetes-sigs/cluster-api-provider-vsphere, for both issues and PRs](#labels-that-apply-to-kubernetes-sigscluster-api-provider-vsphere-for-both-issues-and-prs)
+- [Labels that apply to kubernetes-sigs/contributor-playground, for both issues and PRs](#labels-that-apply-to-kubernetes-sigscontributor-playground-for-both-issues-and-prs)
 - [Labels that apply to kubernetes-sigs/contributor-tweets, for both issues and PRs](#labels-that-apply-to-kubernetes-sigscontributor-tweets-for-both-issues-and-prs)
 - [Labels that apply to kubernetes-sigs/controller-runtime, for both issues and PRs](#labels-that-apply-to-kubernetes-sigscontroller-runtime-for-both-issues-and-prs)
 - [Labels that apply to kubernetes-sigs/gateway-api, only for issues](#labels-that-apply-to-kubernetes-sigsgateway-api-only-for-issues)
@@ -77,6 +78,7 @@ larger set of contributors to apply/remove them.
 | <a id="api-review" href="#api-review">`api-review`</a> | Categorizes an issue or PR as actively needing an API review.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="area/community-meeting" href="#area/community-meeting">`area/community-meeting`</a> | Issues or PRs that should potentially be discussed in a Kubernetes community meeting.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="area/dependency" href="#area/dependency">`area/dependency`</a> | Issues or PRs related to dependency changes| label | |
+| <a id="area/kro" href="#area/kro">`area/kro`</a> | Issues or PRs related to KRO| label | |
 | <a id="area/provider/aws" href="#area/provider/aws">`area/provider/aws`</a> | Issues or PRs related to aws provider <br><br> This was previously `area/platform/aws`, `area/platform/eks`, `sig/aws`, `aws`, | label | |
 | <a id="area/provider/azure" href="#area/provider/azure">`area/provider/azure`</a> | Issues or PRs related to azure provider <br><br> This was previously `area/platform/aks`, `area/platform/azure`, `sig/azure`, `azure`, | label | |
 | <a id="area/provider/digitalocean" href="#area/provider/digitalocean">`area/provider/digitalocean`</a> | Issues or PRs related to digitalocean provider| label | |
@@ -139,13 +141,16 @@ larger set of contributors to apply/remove them.
 | <a id="triage/unresolved" href="#triage/unresolved">`triage/unresolved`</a> | Indicates an issue that can not or will not be resolved. <br><br> This was previously `close/unresolved`, `invalid`, `wontfix`, | humans | |
 | <a id="ug/big-data" href="#ug/big-data">`ug/big-data`</a> | Categorizes an issue or PR as relevant to ug-big-data. <br><br> This was previously `sig/big-data`, | anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="ug/vmware" href="#ug/vmware">`ug/vmware`</a> | Categorizes an issue or PR as relevant to ug-vmware.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="wg/ai-conformance" href="#wg/ai-conformance">`wg/ai-conformance`</a> | Categorizes an issue or PR as relevant to WG AI Conformance.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/api-expression" href="#wg/api-expression">`wg/api-expression`</a> | Categorizes an issue or PR as relevant to WG API Expression. <br><br> This was previously `wg/apply`, | anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/batch" href="#wg/batch">`wg/batch`</a> | Categorizes an issue or PR as relevant to WG Batch.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="wg/checkpoint-restore" href="#wg/checkpoint-restore">`wg/checkpoint-restore`</a> | Categorizes an issue or PR as relevant to WG Checkpoint Restore.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/data-protection" href="#wg/data-protection">`wg/data-protection`</a> | Categorizes an issue or PR as relevant to WG Data Protection.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/device-management" href="#wg/device-management">`wg/device-management`</a> | Categorizes an issue or PR as relevant to WG Device Management.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/iot-edge" href="#wg/iot-edge">`wg/iot-edge`</a> | Categorizes an issue or PR as relevant to WG IOT Edge.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/multitenancy" href="#wg/multitenancy">`wg/multitenancy`</a> | Categorizes an issue or PR as relevant to WG Multitenancy.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/naming" href="#wg/naming">`wg/naming`</a> | Categorizes an issue or PR as relevant to WG Naming.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="wg/node-lifecycle" href="#wg/node-lifecycle">`wg/node-lifecycle`</a> | Categorizes an issue or PR as relevant to WG Node Lifecycle.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/policy" href="#wg/policy">`wg/policy`</a> | Categorizes an issue or PR as relevant to WG Policy.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/reliability" href="#wg/reliability">`wg/reliability`</a> | Categorizes an issue or PR as relevant to WG Reliability| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="wg/serving" href="#wg/serving">`wg/serving`</a> | Categorizes an issue or PR as relevant to WG Serving.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
@@ -305,6 +310,27 @@ larger set of contributors to apply/remove them.
 | <a id="area/govmomi" href="#area/govmomi">`area/govmomi`</a> | Issues or PRs related to the govmomi mode| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 | <a id="area/supervisor" href="#area/supervisor">`area/supervisor`</a> | Issues or PRs related to the supervisor mode| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
 
+## Labels that apply to kubernetes-sigs/contributor-playground, for both issues and PRs
+
+| Name | Description | Added By | Prow Plugin |
+| ---- | ----------- | -------- | --- |
+| <a id="area/aotearoa" href="#area/aotearoa">`area/aotearoa`</a> | Issues or PRs related to Aotearoa region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/australia" href="#area/australia">`area/australia`</a> | Issues or PRs related to Australia region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/austria" href="#area/austria">`area/austria`</a> | Issues or PRs related to Austria region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/barcelona" href="#area/barcelona">`area/barcelona`</a> | Issues or PRs related to Barcelona region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/bay-area" href="#area/bay-area">`area/bay-area`</a> | Issues or PRs related to Bay Area| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/beijing" href="#area/beijing">`area/beijing`</a> | Issues or PRs related to Beijing region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/brazil" href="#area/brazil">`area/brazil`</a> | Issues or PRs related to Brazil region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/czechia" href="#area/czechia">`area/czechia`</a> | Issues or PRs related to Czechia region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/denmark" href="#area/denmark">`area/denmark`</a> | Issues or PRs related to Denmark region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/denver" href="#area/denver">`area/denver`</a> | Issues or PRs related to Denver region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/india" href="#area/india">`area/india`</a> | Issues or PRs related to India region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/japan" href="#area/japan">`area/japan`</a> | Issues or PRs related to Japan region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/paris" href="#area/paris">`area/paris`</a> | Issues or PRs related to Paris region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/remote" href="#area/remote">`area/remote`</a> | Issues or PRs related to remote events or activities| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/sandiego" href="#area/sandiego">`area/sandiego`</a> | Issues or PRs related to San Diego region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/seattle" href="#area/seattle">`area/seattle`</a> | Issues or PRs related to Seattle region| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+
 ## Labels that apply to kubernetes-sigs/contributor-tweets, for both issues and PRs
 
 | Name | Description | Added By | Prow Plugin |
@@ -368,6 +394,7 @@ larger set of contributors to apply/remove them.
 | <a id="area/branchprotector" href="#area/branchprotector">`area/branchprotector`</a> | Issues or PRs related to prow's branchprotector component| label | |
 | <a id="area/crier" href="#area/crier">`area/crier`</a> | Issues or PRs related to prow's crier component| label | |
 | <a id="area/deck" href="#area/deck">`area/deck`</a> | Issues or PRs related to prow's deck component| label | |
+| <a id="area/documentation" href="#area/documentation">`area/documentation`</a> | Issues or PRs related to documentation| label | |
 | <a id="area/gangway" href="#area/gangway">`area/gangway`</a> | Issues or PRs related to prow's gangway component| label | |
 | <a id="area/gerrit" href="#area/gerrit">`area/gerrit`</a> | Issues or PRs related to prow's gerrit component| label | |
 | <a id="area/ghproxy" href="#area/ghproxy">`area/ghproxy`</a> | Issues or PRs related to prow's ghproxy component| label | |
@@ -492,17 +519,97 @@ larger set of contributors to apply/remove them.
 
 | Name | Description | Added By | Prow Plugin |
 | ---- | ----------- | -------- | --- |
+| <a id="area/HA" href="#area/HA">`area/HA`</a> | | label | |
+| <a id="area/admission-control" href="#area/admission-control">`area/admission-control`</a> | | label | |
+| <a id="area/apiserver" href="#area/apiserver">`area/apiserver`</a> | | label | |
+| <a id="area/app-lifecycle" href="#area/app-lifecycle">`area/app-lifecycle`</a> | | label | |
 | <a id="area/artifacts" href="#area/artifacts">`area/artifacts`</a> | Issues or PRs related to the hosting of release artifacts for subprojects| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="area/audit" href="#area/audit">`area/audit`</a> | | label | |
+| <a id="area/batch" href="#area/batch">`area/batch`</a> | | label | |
+| <a id="area/build-release" href="#area/build-release">`area/build-release`</a> | | label | |
+| <a id="area/cadvisor" href="#area/cadvisor">`area/cadvisor`</a> | | label | |
+| <a id="area/client-libraries" href="#area/client-libraries">`area/client-libraries`</a> | | label | |
+| <a id="area/cloudprovider" href="#area/cloudprovider">`area/cloudprovider`</a> | | label | |
+| <a id="area/code-generation" href="#area/code-generation">`area/code-generation`</a> | | label | |
 | <a id="area/code-organization" href="#area/code-organization">`area/code-organization`</a> | Issues or PRs related to kubernetes code organization| label | |
+| <a id="area/code-organization/future-dependencies" href="#area/code-organization/future-dependencies">`area/code-organization/future-dependencies`</a> | Issues related to upcoming dependency or golang updates| label | |
+| <a id="area/configmap-api" href="#area/configmap-api">`area/configmap-api`</a> | | label | |
 | <a id="area/conformance" href="#area/conformance">`area/conformance`</a> | Issues or PRs related to kubernetes conformance tests| label | |
+| <a id="area/controller-manager" href="#area/controller-manager">`area/controller-manager`</a> | | label | |
+| <a id="area/custom-resources" href="#area/custom-resources">`area/custom-resources`</a> | | label | |
+| <a id="area/declarative-configuration" href="#area/declarative-configuration">`area/declarative-configuration`</a> | | label | |
 | <a id="area/deflake" href="#area/deflake">`area/deflake`</a> | Issues or PRs related to deflaking kubernetes tests| label | |
+| <a id="area/dns" href="#area/dns">`area/dns`</a> | | label | |
+| <a id="area/docker" href="#area/docker">`area/docker`</a> | | label | |
+| <a id="area/downward-api" href="#area/downward-api">`area/downward-api`</a> | | label | |
 | <a id="area/e2e-test-framework" href="#area/e2e-test-framework">`area/e2e-test-framework`</a> | Issues or PRs related to refactoring the kubernetes e2e test framework| label | |
+| <a id="area/ecosystem" href="#area/ecosystem">`area/ecosystem`</a> | | label | |
+| <a id="area/etcd" href="#area/etcd">`area/etcd`</a> | | label | |
+| <a id="area/example" href="#area/example">`area/example`</a> | | label | |
+| <a id="area/example/cassandra" href="#area/example/cassandra">`area/example/cassandra`</a> | | label | |
+| <a id="area/extensibility" href="#area/extensibility">`area/extensibility`</a> | | label | |
+| <a id="area/federation" href="#area/federation">`area/federation`</a> | | label | |
+| <a id="area/hw-accelerators" href="#area/hw-accelerators">`area/hw-accelerators`</a> | | label | |
+| <a id="area/images-registry" href="#area/images-registry">`area/images-registry`</a> | | label | |
+| <a id="area/ingress" href="#area/ingress">`area/ingress`</a> | | label | |
+| <a id="area/introspection" href="#area/introspection">`area/introspection`</a> | | label | |
+| <a id="area/ipv6" href="#area/ipv6">`area/ipv6`</a> | | label | |
+| <a id="area/ipvs" href="#area/ipvs">`area/ipvs`</a> | | label | |
+| <a id="area/isolation" href="#area/isolation">`area/isolation`</a> | | label | |
+| <a id="area/kube-proxy" href="#area/kube-proxy">`area/kube-proxy`</a> | | label | |
+| <a id="area/kubeadm" href="#area/kubeadm">`area/kubeadm`</a> | | label | |
+| <a id="area/kubectl" href="#area/kubectl">`area/kubectl`</a> | | label | |
+| <a id="area/kubelet" href="#area/kubelet">`area/kubelet`</a> | | label | |
+| <a id="area/kubelet-api" href="#area/kubelet-api">`area/kubelet-api`</a> | | label | |
+| <a id="area/logging" href="#area/logging">`area/logging`</a> | | label | |
+| <a id="area/monitoring" href="#area/monitoring">`area/monitoring`</a> | | label | |
 | <a id="area/network-policy" href="#area/network-policy">`area/network-policy`</a> | Issues or PRs related to Network Policy subproject| label | |
+| <a id="area/node-e2e" href="#area/node-e2e">`area/node-e2e`</a> | | label | |
 | <a id="area/node-lifecycle" href="#area/node-lifecycle">`area/node-lifecycle`</a> | Issues or PRs related to Node lifecycle| label | |
+| <a id="area/nodecontroller" href="#area/nodecontroller">`area/nodecontroller`</a> | | label | |
+| <a id="area/os/coreos" href="#area/os/coreos">`area/os/coreos`</a> | | label | |
+| <a id="area/os/fedora" href="#area/os/fedora">`area/os/fedora`</a> | | label | |
+| <a id="area/os/ubuntu" href="#area/os/ubuntu">`area/os/ubuntu`</a> | | label | |
+| <a id="area/platform/gce" href="#area/platform/gce">`area/platform/gce`</a> | | label | |
+| <a id="area/platform/mesos" href="#area/platform/mesos">`area/platform/mesos`</a> | | label | |
+| <a id="area/platform/vagrant" href="#area/platform/vagrant">`area/platform/vagrant`</a> | | label | |
 | <a id="area/pod-lifecycle" href="#area/pod-lifecycle">`area/pod-lifecycle`</a> | Issues or PRs related to Pod lifecycle| label | |
 | <a id="area/release-eng" href="#area/release-eng">`area/release-eng`</a> | Issues or PRs related to the Release Engineering subproject <br><br> This was previously `area/release-infra`, | label | |
+| <a id="area/reliability" href="#area/reliability">`area/reliability`</a> | | label | |
+| <a id="area/rkt" href="#area/rkt">`area/rkt`</a> | | label | |
+| <a id="area/secret-api" href="#area/secret-api">`area/secret-api`</a> | | label | |
+| <a id="area/security" href="#area/security">`area/security`</a> | | label | |
 | <a id="area/stable-metrics" href="#area/stable-metrics">`area/stable-metrics`</a> | Issues or PRs involving stable metrics| label | |
+| <a id="area/stateful-apps" href="#area/stateful-apps">`area/stateful-apps`</a> | | label | |
+| <a id="area/swagger" href="#area/swagger">`area/swagger`</a> | | label | |
+| <a id="area/system-requirement" href="#area/system-requirement">`area/system-requirement`</a> | | label | |
+| <a id="area/teardown" href="#area/teardown">`area/teardown`</a> | | label | |
+| <a id="area/test" href="#area/test">`area/test`</a> | | label | |
+| <a id="area/test-infra" href="#area/test-infra">`area/test-infra`</a> | | label | |
+| <a id="area/ui" href="#area/ui">`area/ui`</a> | | label | |
+| <a id="area/upgrade" href="#area/upgrade">`area/upgrade`</a> | | label | |
+| <a id="area/usability" href="#area/usability">`area/usability`</a> | | label | |
+| <a id="area/workload-api/cronjob" href="#area/workload-api/cronjob">`area/workload-api/cronjob`</a> | | label | |
+| <a id="area/workload-api/daemonset" href="#area/workload-api/daemonset">`area/workload-api/daemonset`</a> | | label | |
+| <a id="area/workload-api/deployment" href="#area/workload-api/deployment">`area/workload-api/deployment`</a> | | label | |
+| <a id="area/workload-api/job" href="#area/workload-api/job">`area/workload-api/job`</a> | | label | |
+| <a id="area/workload-api/replicaset" href="#area/workload-api/replicaset">`area/workload-api/replicaset`</a> | | label | |
+| <a id="kind/dependency" href="#kind/dependency">`kind/dependency`</a> | Categorizes issue or PR as related to a dependency update.| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="kind/design" href="#kind/design">`kind/design`</a> | Categorizes issue or PR as related to design.| humans | |
+| <a id="milestone/incomplete-labels" href="#milestone/incomplete-labels">`milestone/incomplete-labels`</a> | | humans | |
+| <a id="milestone/needs-approval" href="#milestone/needs-approval">`milestone/needs-approval`</a> | | humans | |
+| <a id="milestone/needs-attention" href="#milestone/needs-attention">`milestone/needs-attention`</a> | | humans | |
+| <a id="milestone/removed" href="#milestone/removed">`milestone/removed`</a> | | humans | |
 | <a id="official-cve-feed" href="#official-cve-feed">`official-cve-feed`</a> | Issues or PRs related to CVEs officially announced by Security Response Committee (SRC)| anyone |  [label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/label) |
+| <a id="release-blocker" href="#release-blocker">`release-blocker`</a> | | humans | |
+| <a id="sig/service-catalog" href="#sig/service-catalog">`sig/service-catalog`</a> | Categorizes an issue or PR as relevant to SIG Service Catalog.| humans | |
+| <a id="sig/usability" href="#sig/usability">`sig/usability`</a> | Categorizes an issue or PR as relevant to SIG Usability.| humans | |
+| <a id="status/approved-for-milestone" href="#status/approved-for-milestone">`status/approved-for-milestone`</a> | | humans | |
+| <a id="wg/cluster-api" href="#wg/cluster-api">`wg/cluster-api`</a> | Categorizes an issue or PR as relevant to wg-cluster-api.| humans | |
+| <a id="wg/component-standard" href="#wg/component-standard">`wg/component-standard`</a> | Categorizes an issue or PR as relevant to WG Component Standard.| humans | |
+| <a id="wg/lts" href="#wg/lts">`wg/lts`</a> | Categorizes an issue or PR as relevant to WG LTS.| humans | |
+| <a id="wg/machine-learning" href="#wg/machine-learning">`wg/machine-learning`</a> | Categorizes an issue or PR as relevant to WG Machine Learning.| humans | |
+| <a id="wg/security-audit" href="#wg/security-audit">`wg/security-audit`</a> | Categorizes an issue or PR as relevant to WG Security Audit.| humans | |
 
 ## Labels that apply to kubernetes/kubernetes, only for issues
 
@@ -515,6 +622,7 @@ larger set of contributors to apply/remove them.
 
 | Name | Description | Added By | Prow Plugin |
 | ---- | ----------- | -------- | --- |
+| <a id="dependencies" href="#dependencies">`dependencies`</a> | Pull requests that update a dependency file| github | |
 | <a id="do-not-merge/contains-merge-commits" href="#do-not-merge/contains-merge-commits">`do-not-merge/contains-merge-commits`</a> | Indicates a PR which contains merge commits.| prow |  [mergecommitblocker](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/mergecommitblocker) |
 | <a id="do-not-merge/needs-kind" href="#do-not-merge/needs-kind">`do-not-merge/needs-kind`</a> | Indicates a PR lacks a `kind/foo` label and requires one.| prow |  [require-matching-label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/require-matching-label) |
 | <a id="do-not-merge/needs-sig" href="#do-not-merge/needs-sig">`do-not-merge/needs-sig`</a> | Indicates an issue or PR lacks a `sig/foo` label and requires one.| prow |  [require-matching-label](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins/require-matching-label) |

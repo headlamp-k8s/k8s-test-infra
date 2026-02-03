@@ -1,22 +1,4 @@
 aliases:
-  # business hours oncall for prow etc (https://go.k8s.io/oncall)
-  test-infra-oncall:
-  - airbornepony
-  - chases2
-  - cjwagner
-  - michelle192837
-  - mpherman2
-  - timwangmusic
-
-
-  sig-k8s-infra-oncall:
-  - BenTheElder
-  # kubernetes.io org admins
-  - ameukam
-  - dims
-  - thockin
-  - upodroid
-
   # copied from git.k8s.io/community/OWNERS_ALIASES
   sig-api-machinery-leads:
     - deads2k
@@ -81,9 +63,9 @@ aliases:
     - rexagod
     - richabanker
   sig-k8s-infra-leads:
-    - BenTheElder
     - ameukam
-    - dims
+    - GenPage
+    - hakman
     - upodroid
     - xmudrii
   sig-multicluster-leads:
@@ -113,9 +95,9 @@ aliases:
     - shyamjvs
     - wojtek-t
   sig-scheduling-leads:
-    - Huang-Wei
-    - ahg-g
-    - alculquicondor
+    - dom4ha
+    - macsko
+    - sanposhiho
   sig-security-leads:
     - IanColdwater
     - cailyn-codes
@@ -166,6 +148,15 @@ aliases:
     - jeremyrickard
     - liggitt
     - micahhausler
+  wg-node-lifecycle-leads:
+    - JoelSpeed
+    - atiratree
+    - fabriziopandini
+    - haircommander
+    - humblec
+    - intUnderflow
+    - kwilczynski
+    - rthallisey
   wg-policy-leads:
     - JimBugwadia
     - poonam-lamba
@@ -249,6 +240,22 @@ aliases:
     - SergeyKanzhelev
     - endocrimes
     - kannon92
+  sig-scheduling-reviewers:
+    - AxeZhan
+    - damemi
+    - denkensk
+    - dom4ha
+    - macsko
+    - sanposhiho
+    - utam0k
+    - kerthcet
+  sig-scheduling-approvers:
+    - ahg-g
+    - dom4ha
+    - Huang-Wei
+    - kerthcet
+    - macsko
+    - sanposhiho
   # - emeritus
   # - yguo0905
   # - dashpole
@@ -298,21 +305,6 @@ aliases:
     - johnbelamaric # subproject owner
     - justaugustus # subproject owner
     - mrbobbytables # subproject owner
-
-  # mostly copied from sigs.k8s.io/kubebuilder/OWNERS_ALIASES
-  kubebuilder-admins:
-  - camilamacedo86
-  - mengqiy
-  - estroz
-  - joelanford
-
-  kubebuilder-reviewers:
-  - alexeldeib
-
-  kubebuilder-emeritus-approvers:
-  - pwittrock
-
-  # end sigs.k8s.io/kubebuilder/OWNERS_ALIASES
 
   # copied from sigs.k8s.io/promo-tools/OWNERS_ALIASES
   promo-tools-approvers:

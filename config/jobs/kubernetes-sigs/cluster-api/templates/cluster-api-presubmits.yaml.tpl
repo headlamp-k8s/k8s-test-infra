@@ -24,7 +24,7 @@ presubmits:
             cpu: 6000m
             memory: 4Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-build-{{ ReplaceAll $.branch "." "-" }}
   - name: pull-cluster-api-apidiff-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -51,7 +51,7 @@ presubmits:
             cpu: 6000m
             memory: 2Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-apidiff-{{ ReplaceAll $.branch "." "-" }}
   - name: pull-cluster-api-verify-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -81,7 +81,7 @@ presubmits:
         securityContext:
           privileged: true
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-verify-{{ ReplaceAll $.branch "." "-" }}
   - name: pull-cluster-api-test-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -101,13 +101,13 @@ presubmits:
         - ./scripts/ci-test.sh
         resources:
           requests:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
           limits:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-test-{{ ReplaceAll $.branch "." "-" }}
   - name: pull-cluster-api-test-mink8s-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -137,13 +137,13 @@ presubmits:
           value: "{{ $.config.KubebuilderEnvtestKubernetesVersion }}"
         resources:
           requests:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
           limits:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-test-mink8s-{{ ReplaceAll $.branch "." "-" }}
   - name: pull-cluster-api-e2e-mink8s-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -173,7 +173,7 @@ presubmits:
         # enable IPV6 in bootstrap image
         - name: "DOCKER_IN_DOCKER_IPV6_ENABLED"
           value: "true"
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
         - name: GINKGO_SKIP
           value: "\\[Conformance\\]"
 {{- else }}
@@ -202,7 +202,7 @@ presubmits:
             cpu: 3000m
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-e2e-mink8s-{{ ReplaceAll $.branch "." "-" }}
   - name: pull-cluster-api-e2e-blocking-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -229,7 +229,7 @@ presubmits:
           - runner.sh
           - "./scripts/ci-e2e.sh"
         env:
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
           - name: GINKGO_FOCUS
             value: "\\[PR-Blocking\\]"
 {{- else }}
@@ -250,10 +250,15 @@ presubmits:
             cpu: 3000m
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-e2e-blocking-{{ ReplaceAll $.branch "." "-" }}
-  - name: pull-cluster-api-e2e-{{ ReplaceAll $.branch "." "-" }}
-    cluster: eks-prow-build-cluster
+
+{{- block "e2e-main" (list $ "eks-prow-build-cluster" "") }}
+{{- $prowCluster := index $ 1 }}
+{{- $jobSuffix := index $ 2 }}
+{{- with index $ 0 }}
+  - name: pull-cluster-api-e2e-{{ ReplaceAll .branch "." "-" }}{{ $jobSuffix }}
+    cluster: {{ $prowCluster }}
     labels:
       preset-dind-enabled: "true"
       preset-kind-volume-mounts: "true"
@@ -268,11 +273,11 @@ presubmits:
     always_run: false
     branches:
     # The script this job runs is not in all branches.
-    - ^{{ $.branch }}$
+    - ^{{ .branch }}$
     path_alias: sigs.k8s.io/cluster-api
     spec:
       containers:
-      - image: {{ $.config.TestImage }}
+      - image: {{ .config.TestImage }}
         args:
           - runner.sh
           - "./scripts/ci-e2e.sh"
@@ -280,7 +285,7 @@ presubmits:
           # enable IPV6 in bootstrap image
           - name: "DOCKER_IN_DOCKER_IPV6_ENABLED"
             value: "true"
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq .branch "release-1.9" }}
           - name: GINKGO_SKIP
             value: "\\[Conformance\\]"
 {{- else }}
@@ -301,8 +306,14 @@ presubmits:
             cpu: 3000m
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
-      testgrid-tab-name: capi-pr-e2e-{{ ReplaceAll $.branch "." "-" }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix .branch "release-" }}
+      testgrid-tab-name: capi-pr-e2e-{{ ReplaceAll .branch "." "-" }}{{ $jobSuffix }}
+{{- end }}
+{{- end }}
+
+{{- if eq $.branch "main" }}
+  {{- template "e2e-main" (list $ "k8s-infra-prow-build" "-gke") }}
+{{- end }}
   - name: pull-cluster-api-e2e-upgrade-{{ ReplaceAll (last $.config.Upgrades).From "." "-" }}-{{ ReplaceAll (last $.config.Upgrades).To "." "-" }}-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
     labels:
@@ -338,7 +349,7 @@ presubmits:
             value: "{{ index (index $.versions ((last $.config.Upgrades).To)) "etcd" }}"
           - name: COREDNS_VERSION_UPGRADE_TO
             value: "{{ index (index $.versions ((last $.config.Upgrades).To)) "coreDNS" }}"
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
           - name: GINKGO_FOCUS
             value: "\\[Conformance\\] \\[K8s-Upgrade\\]"
 {{- else }}
@@ -356,7 +367,7 @@ presubmits:
             cpu: 6000m
             memory: 6Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-e2e-{{ ReplaceAll $.branch "." "-" }}-{{ ReplaceAll (last $.config.Upgrades).From "." "-" }}-{{ ReplaceAll (last $.config.Upgrades).To "." "-" }}
   - name: pull-cluster-api-e2e-conformance-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -383,7 +394,7 @@ presubmits:
         - runner.sh
         - "./scripts/ci-e2e.sh"
         env:
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
         - name: GINKGO_FOCUS
           value: "\\[Conformance\\] \\[K8s-Install\\]"
 {{- else }}
@@ -404,7 +415,7 @@ presubmits:
             cpu: 4000m
             memory: 4Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-e2e-conformance-{{ ReplaceAll $.branch "." "-" }}
   - name: pull-cluster-api-e2e-conformance-ci-latest-{{ ReplaceAll $.branch "." "-" }}
     cluster: eks-prow-build-cluster
@@ -431,7 +442,7 @@ presubmits:
         - runner.sh
         - "./scripts/ci-e2e.sh"
         env:
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
         - name: GINKGO_FOCUS
           value: "\\[Conformance\\] \\[K8s-Install-ci-latest\\]"
 {{- else }}
@@ -452,7 +463,7 @@ presubmits:
             cpu: 4000m
             memory: 4Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-e2e-conformance-ci-latest-{{ ReplaceAll $.branch "." "-" }}
 {{ if eq $.branch "main" }}
   - name: pull-cluster-api-e2e-latestk8s-{{ ReplaceAll $.branch "." "-" }}
@@ -483,7 +494,7 @@ presubmits:
         # enable IPV6 in bootstrap image
         - name: "DOCKER_IN_DOCKER_IPV6_ENABLED"
           value: "true"
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
         - name: GINKGO_SKIP
           value: "\\[Conformance\\]"
 {{- else }}
@@ -516,6 +527,6 @@ presubmits:
             cpu: 3000m
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+      testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
       testgrid-tab-name: capi-pr-e2e-latestk8s-{{ ReplaceAll $.branch "." "-" }}
 {{ end -}}

@@ -9,7 +9,7 @@ periodics:
   decoration_config:
     timeout: 4h0m0s
   extra_refs:
-  - base_ref: release-1.19
+  - base_ref: main
     org: kubernetes-sigs
     path_alias: sigs.k8s.io/cluster-api-provider-azure
     repo: cluster-api-provider-azure
@@ -26,7 +26,7 @@ periodics:
   labels:
     preset-azure-community: "true"
     preset-capz-containerd-1-7-latest: "true"
-    preset-capz-windows-2022-202503b: "true"
+    preset-capz-windows-2022: "true"
     preset-capz-windows-common: "true"
     preset-dind-enabled: "true"
     preset-kind-volume-mounts: "true"
@@ -38,7 +38,7 @@ periodics:
       - env
       - KUBERNETES_VERSION=latest-1.32
       - ./capz/run-capz-e2e.sh
-      image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
       name: ""
       resources:
         limits:
@@ -61,11 +61,11 @@ periodics:
     preset-capz-containerd-1-7-latest: "true"
     preset-capz-serial-slow: "true"
     preset-capz-gmsa-setup: "true"
-    preset-capz-windows-2022-202503b: "true"
+    preset-capz-windows-2022: "true"
   extra_refs:
   - org: kubernetes-sigs
     repo: cluster-api-provider-azure
-    base_ref: release-1.19
+    base_ref: main
     path_alias: sigs.k8s.io/cluster-api-provider-azure
     workdir: false
   - org: kubernetes-sigs
@@ -81,7 +81,7 @@ periodics:
   spec:
     serviceAccountName: azure
     containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         command:
           - "runner.sh"
           - "env"

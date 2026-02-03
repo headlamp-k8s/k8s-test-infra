@@ -20,7 +20,7 @@ presubmits:
       path_alias: k8s.io/test-infra
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/krte:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/krte:v20260127-f10a7ebcce-master
         command:
         - wrapper.sh
         - bash
@@ -69,7 +69,7 @@ presubmits:
         runAsUser: 2001
         runAsGroup: 2010
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         securityContext:
           allowPrivilegeEscalation: false
         command:
@@ -79,11 +79,11 @@ presubmits:
         - unit
         resources:
           limits:
-            cpu: 7.2
-            memory: "43Gi"
+            cpu: 7
+            memory: 16Gi
           requests:
-            cpu: 7.2
-            memory: "43Gi"
+            cpu: 7
+            memory: 16Gi
     annotations:
       testgrid-dashboards: sig-arch-code-organization
       testgrid-tab-name: pull-unit-master-dependencies
@@ -111,7 +111,7 @@ presubmits:
       path_alias: k8s.io/test-infra
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/krte:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/krte:v20260127-f10a7ebcce-master
         command:
         - wrapper.sh
         - bash
@@ -162,7 +162,7 @@ presubmits:
         runAsUser: 2001
         runAsGroup: 2010
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         securityContext:
           allowPrivilegeEscalation: false
         command:
@@ -174,11 +174,11 @@ presubmits:
           value: "devel"
         resources:
           limits:
-            cpu: 7.2
-            memory: "43Gi"
+            cpu: 7
+            memory: 16Gi
           requests:
-            cpu: 7.2
-            memory: "43Gi"
+            cpu: 7
+            memory: 16Gi
     annotations:
       testgrid-dashboards: sig-arch-code-organization
       testgrid-tab-name: pull-unit-master-golang-tip
@@ -212,7 +212,7 @@ periodics:
     path_alias: k8s.io/test-infra
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/krte:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/krte:v20260127-f10a7ebcce-master
       command:
       - wrapper.sh
       - bash
@@ -261,7 +261,7 @@ periodics:
       runAsUser: 2001
       runAsGroup: 2010
     containers:
-    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
       securityContext:
         allowPrivilegeEscalation: false
       command:
@@ -271,11 +271,11 @@ periodics:
       - unit
       resources:
         limits:
-          cpu: 7.2
-          memory: "43Gi"
+          cpu: 7
+          memory: 16Gi
         requests:
-          cpu: 7.2
-          memory: "43Gi"
+          cpu: 7
+          memory: 16Gi
 
 - interval: 4h
   cluster: k8s-infra-prow-build
@@ -302,7 +302,7 @@ periodics:
     path_alias: k8s.io/test-infra
   spec:
     containers:
-    - image: gcr.io/k8s-staging-test-infra/krte:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/krte:v20260127-f10a7ebcce-master
       command:
       - wrapper.sh
       - bash
@@ -353,7 +353,7 @@ periodics:
       runAsUser: 2001
       runAsGroup: 2010
     containers:
-    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+    - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
       securityContext:
         allowPrivilegeEscalation: false
       command:
@@ -365,8 +365,112 @@ periodics:
         value: "devel"
       resources:
         limits:
-          cpu: 7.2
-          memory: "43Gi"
+          cpu: 7
+          memory: 16Gi
         requests:
-          cpu: 7.2
-          memory: "43Gi"
+          cpu: 7
+          memory: 16Gi
+
+- interval: 4h
+  cluster: k8s-infra-prow-build
+  name: ci-kubernetes-build-golang-tip
+  annotations:
+    testgrid-dashboards: sig-arch-code-organization
+    testgrid-tab-name: unit-master-build-golang-tip
+    description: Build golang tip
+    testgrid-alert-email: davanum@gmail.com
+    testgrid-num-columns-recent: '6'
+  decorate: true
+  extra_refs:
+    - org: kubernetes
+      repo: kubernetes
+      base_ref: master
+      path_alias: k8s.io/kubernetes
+  spec:
+    # unit tests have no business requiring root or doing privileged operations
+    securityContext:
+      # NOTE: these are arbitrary non-root values. They don't exist in the
+      # image and don't need to, the unit tests should only write to TMPDIR
+      runAsUser: 2001
+      runAsGroup: 2010
+    containers:
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
+        securityContext:
+          allowPrivilegeEscalation: false
+        command:
+          - runner.sh
+        args:
+          - bash
+          - -c
+          - |
+            export HOME="$(mktemp -d)"
+            export GOROOT_BOOTSTRAP="$(go env GOROOT)"
+
+            atexit () {
+              find "$HOME/.gimme" -name "*.log" -exec cp {} "${ARTIFACTS}" \;
+            }
+            trap 'atexit' EXIT
+
+            GIMME_DEBUG=true third_party/gimme/gimme master
+        resources:
+          limits:
+            cpu: 4
+            memory: "8Gi"
+          requests:
+            cpu: 4
+            memory: "8Gi"
+
+- name: ci-cgroup-systemd-containerd-node-e2e-golang-tip
+  cluster: k8s-infra-prow-build
+  interval: 8h
+  labels:
+    preset-service-account: "true"
+    preset-k8s-ssh: "true"
+  decorate: true
+  decoration_config:
+    timeout: 90m
+  extra_refs:
+    - org: kubernetes
+      repo: kubernetes
+      base_ref: master
+      path_alias: k8s.io/kubernetes
+      workdir: true
+    - org: containerd
+      repo: containerd
+      base_ref: main
+      path_alias: github.com/containerd/containerd
+    - org: kubernetes
+      repo: test-infra
+      base_ref: master
+      path_alias: k8s.io/test-infra
+  spec:
+    containers:
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
+        command:
+          - runner.sh
+          - /workspace/scenarios/kubernetes_e2e.py
+        args:
+          - --node-args=--image-config-file=/home/prow/go/src/k8s.io/test-infra/jobs/e2e_node/containerd/containerd-main/systemd/image-config.yaml
+          - --deployment=node
+          - --gcp-zone=us-central1-b
+          - '--node-test-args=--container-runtime-endpoint=unix:///run/containerd/containerd.sock --container-runtime-process-name=/home/containerd/usr/local/bin/containerd --container-runtime-pid-file= --kubelet-flags="--cgroup-driver=systemd --cgroups-per-qos=true --cgroup-root=/ --runtime-cgroups=/system.slice/containerd.service"'
+          - --node-tests=true
+          - --provider=gce
+          - --test_args=--nodes=8 --focus="\[NodeConformance\]" --skip="\[Flaky\]|\[Serial\]"
+          - --timeout=65m
+        resources:
+          limits:
+            cpu: 4
+            memory: 6Gi
+          requests:
+            cpu: 4
+            memory: 6Gi
+        env:
+          - name: GOPATH
+            value: /go
+          - name: GO_VERSION
+            value: "devel"
+  annotations:
+    testgrid-dashboards: sig-arch-code-organization
+    testgrid-tab-name: cgroup-systemd-containerd-node-e2e-golang-tip
+    testgrid-alert-email: davanum@gmail.com

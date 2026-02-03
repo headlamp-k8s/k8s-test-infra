@@ -22,13 +22,13 @@ periodics:
       - ./scripts/ci-test.sh
       resources:
         requests:
-          cpu: 7300m
+          cpu: 7
           memory: 8Gi
         limits:
-          cpu: 7300m
+          cpu: 7
           memory: 8Gi
   annotations:
-    testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+    testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
     testgrid-tab-name: capi-test-{{ ReplaceAll $.branch "." "-" }}
     testgrid-alert-email: sig-cluster-lifecycle-cluster-api-alerts@kubernetes.io
     testgrid-num-failures-to-alert: "4"
@@ -65,13 +65,13 @@ periodics:
         value: "{{ $.config.KubebuilderEnvtestKubernetesVersion }}"
       resources:
         requests:
-          cpu: 7300m
+          cpu: 7
           memory: 8Gi
         limits:
-          cpu: 7300m
+          cpu: 7
           memory: 8Gi
   annotations:
-    testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+    testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
     testgrid-tab-name: capi-test-mink8s-{{ ReplaceAll $.branch "." "-" }}
     testgrid-alert-email: sig-cluster-lifecycle-cluster-api-alerts@kubernetes.io
     testgrid-num-failures-to-alert: "4"
@@ -104,10 +104,10 @@ periodics:
           - runner.sh
           - "./scripts/ci-e2e.sh"
         env:
-            # enable IPV6 in bootstrap image
+          # enable IPV6 in bootstrap image
           - name: "DOCKER_IN_DOCKER_IPV6_ENABLED"
             value: "true"
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
           - name: GINKGO_SKIP
             value: "\\[Conformance\\]"
 {{- else }}
@@ -128,7 +128,7 @@ periodics:
             cpu: 3000m
             memory: 8Gi
   annotations:
-    testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+    testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
     testgrid-tab-name: capi-e2e-{{ ReplaceAll $.branch "." "-" }}
     testgrid-alert-email: sig-cluster-lifecycle-cluster-api-alerts@kubernetes.io
     testgrid-num-failures-to-alert: "4"
@@ -161,10 +161,10 @@ periodics:
       - runner.sh
       - "./scripts/ci-e2e.sh"
       env:
-        # enable IPV6 in bootstrap image
+      # enable IPV6 in bootstrap image
       - name: "DOCKER_IN_DOCKER_IPV6_ENABLED"
         value: "true"
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
       - name: GINKGO_SKIP
         value: "\\[Conformance\\]"
 {{- else }}
@@ -193,7 +193,7 @@ periodics:
           cpu: 3000m
           memory: 8Gi
   annotations:
-    testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+    testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
     testgrid-tab-name: capi-e2e-mink8s-{{ ReplaceAll $.branch "." "-" }}
     testgrid-alert-email: sig-cluster-lifecycle-cluster-api-alerts@kubernetes.io
     testgrid-num-failures-to-alert: "4"
@@ -226,7 +226,7 @@ periodics:
       - runner.sh
       - "./scripts/ci-e2e.sh"
       env:
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
       - name: GINKGO_FOCUS
         value: "\\[Conformance\\] \\[K8s-Install\\]"
 {{- else }}
@@ -247,7 +247,7 @@ periodics:
           cpu: 4000m
           memory: 4Gi
   annotations:
-    testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+    testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
     testgrid-tab-name: capi-e2e-conformance-{{ ReplaceAll $.branch "." "-" }}
     testgrid-alert-email: sig-cluster-lifecycle-cluster-api-alerts@kubernetes.io
     testgrid-num-failures-to-alert: "4"
@@ -280,7 +280,7 @@ periodics:
       - runner.sh
       - "./scripts/ci-e2e.sh"
       env:
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
       - name: GINKGO_FOCUS
         value: "\\[Conformance\\] \\[K8s-Install-ci-latest\\]"
 {{- else }}
@@ -301,7 +301,7 @@ periodics:
           cpu: 4000m
           memory: 4Gi
   annotations:
-    testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+    testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
     testgrid-tab-name: capi-e2e-conformance-ci-latest-{{ ReplaceAll $.branch "." "-" }}
     testgrid-alert-email: sig-cluster-lifecycle-cluster-api-alerts@kubernetes.io
     testgrid-num-failures-to-alert: "4"
@@ -335,10 +335,10 @@ periodics:
           - runner.sh
           - "./scripts/ci-e2e.sh"
         env:
-            # enable IPV6 in bootstrap image
+          # enable IPV6 in bootstrap image
           - name: "DOCKER_IN_DOCKER_IPV6_ENABLED"
             value: "true"
-{{- if eq $.branch "release-1.8" "release-1.9" }}
+{{- if eq $.branch "release-1.9" }}
           - name: GINKGO_SKIP
             value: "\\[Conformance\\]"
 {{- else }}
@@ -371,7 +371,7 @@ periodics:
             cpu: 3000m
             memory: 8Gi
   annotations:
-    testgrid-dashboards: sig-cluster-lifecycle-cluster-api{{ if eq $.branch "main" | not -}}{{ TrimPrefix $.branch "release" }}{{- end }}
+    testgrid-dashboards: cluster-api-core-{{ TrimPrefix $.branch "release-" }}
     testgrid-tab-name: capi-e2e-latestk8s-{{ ReplaceAll $.branch "." "-" }}
     testgrid-alert-email: sig-cluster-lifecycle-cluster-api-alerts@kubernetes.io
     testgrid-num-failures-to-alert: "4"

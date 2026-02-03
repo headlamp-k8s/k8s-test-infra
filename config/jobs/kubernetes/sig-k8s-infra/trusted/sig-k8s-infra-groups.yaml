@@ -15,7 +15,6 @@ periodics:
     testgrid-num-failures-to-alert: '3'
   rerun_auth_config:
     github_team_slugs:
-    # proxy for sig-k8s-infra-oncall
     - org: kubernetes
       slug: sig-k8s-infra-leads
     # team specifically for this service
@@ -33,6 +32,13 @@ periodics:
       - run
       - --
       - --confirm
+      resources:
+        limits:
+          cpu: 1
+          memory: 1000Mi
+        requests:
+          cpu: 1
+          memory: 1500Mi
 
 postsubmits:
   kubernetes/k8s.io:
@@ -50,7 +56,6 @@ postsubmits:
       testgrid-num-failures-to-alert: '1'
     rerun_auth_config:
       github_team_slugs:
-      # proxy for sig-k8s-infra-oncall
       - org: kubernetes
         slug: sig-k8s-infra-leads
       # team specifically for this service
@@ -68,3 +73,10 @@ postsubmits:
         - run
         - --
         - --confirm
+      resources:
+        limits:
+          cpu: 1
+          memory: 1000Mi
+        requests:
+          cpu: 1
+          memory: 1500Mi

@@ -49,7 +49,7 @@ PROW_CONFIG_TEMPLATE = """
       - command:
         args:
         env:
-        image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+        image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-master
         resources:
           requests:
             cpu: 1000m
@@ -338,6 +338,16 @@ class E2ETest:
         # Generates Prow config.
         prow_config = self.__get_prow_config(test_suite)
 
+        # Generate extra_refs
+        prow_config['extra_refs'] = [
+            {
+                'org': 'kubernetes',
+                'repo': 'kubernetes',
+                'base_ref': f"release-{k8s_version['version']}",
+                'path_alias': 'k8s.io/kubernetes',
+            }
+        ]
+
         tg_config = self.__get_testgrid_config()
 
         annotations = prow_config.setdefault('annotations', {})
@@ -415,7 +425,8 @@ def main(yaml_config_path, output_dir, testgrid_output_path):
 if __name__ == '__main__':
     PARSER = argparse.ArgumentParser(
         description='Create test definitions from the given yaml config')
-    PARSER.add_argument('--yaml-config-path', help='Path to config.yaml')
+    PARSER.add_argument('--yaml-config-path', help='Path to config.yaml',
+                        default='releng/test_config.yaml')
     PARSER.add_argument(
         '--output-dir',
         help='Prowjob config output dir',

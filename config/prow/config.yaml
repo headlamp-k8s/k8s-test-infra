@@ -11,15 +11,17 @@ plank:
     'k8sio-image-promo': 1
     # limits concurrency for k8s-test-infra-staging project
     'test-infra-staging-image-push': 1
+    # limits concurrency for 5k GCE jobs
+    '5k-gce-scale-test': 4
   default_decoration_config_entries:
   - config:
       timeout: 2h
       grace_period: 15m
       utility_images:
-        clonerefs: "us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20250623-59a573d44"
-        initupload: "us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20250623-59a573d44"
-        entrypoint: "us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20250623-59a573d44"
-        sidecar: "us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20250623-59a573d44"
+        clonerefs: "us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260201-a50f011ce"
+        initupload: "us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260201-a50f011ce"
+        entrypoint: "us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260201-a50f011ce"
+        sidecar: "us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260201-a50f011ce"
       gcs_configuration:
         bucket: "kubernetes-ci-logs"
         path_strategy: "legacy"
@@ -40,14 +42,9 @@ plank:
           requests:
             cpu: 100m
       blobless_fetch: true
-  - cluster: gke_rules-k8s_us-central1-f_testing
+  - cluster: k8s-infra-aks-prow-build
     config:
       gcs_credentials_secret: ""
-      default_service_account_name: "prowjob-default-sa"
-  - cluster: test-infra-trusted
-    config:
-      gcs_credentials_secret: ""
-      default_service_account_name: "prowjob-default-sa"
 
 sinker:
   resync_period: 1m
@@ -214,6 +211,7 @@ branch-protection:
       exclude:
         - "^revert-" # don't protect revert branches
         - "^dependabot/" # don't protect branches created by dependabot
+        - "^copilot/" # don't protect branches created by copilot
         - "^greenkeeper/" # don't protect branches created by greenkeeper
       repos:
         api:
@@ -239,7 +237,8 @@ branch-protection:
         autoscaler:
           required_status_checks:
             contexts:
-            - test-and-verify
+            - test
+            - verify
             - Helm chart
             - Helm Docs
           branches:
@@ -360,6 +359,8 @@ branch-protection:
         kops:
           required_status_checks:
             contexts:
+            - tests-e2e-scenarios-bare-metal
+            - tests-e2e-scenarios-bare-metal-ipv6
             - build-linux-amd64
             - build-linux-arm64
             - build-macos-amd64
@@ -472,6 +473,7 @@ branch-protection:
       exclude:
         - "^revert-" # don't protect revert branches
         - "^dependabot/" # don't protect branches created by dependabot
+        - "^copilot/" # don't protect branches created by copilot
         - "^greenkeeper/" # don't protect branches created by greenkeeper
       repos:
         python:
@@ -490,6 +492,7 @@ branch-protection:
       exclude:
         - "^revert-" # don't protect revert branches
         - "^dependabot/" # don't protect branches created by dependabot
+        - "^copilot/" # don't protect branches created by copilot
         - "^greenkeeper/" # don't protect branches created by greenkeeper
     kubernetes-sigs:
       protect: true
@@ -499,8 +502,13 @@ branch-protection:
       exclude:
         - "^revert-" # don't protect revert branches
         - "^dependabot/" # don't protect branches created by dependabot
+        - "^copilot/" # don't protect branches created by copilot
         - "^greenkeeper/" # don't protect branches created by greenkeeper
       repos:
+        alibaba-cloud-csi-driver:
+          branches:
+            gh-pages:
+              protect: false
         apisnoop:
           branches:
             gh-pages:
@@ -510,6 +518,8 @@ branch-protection:
             gh-pages:
               protect: false
         aws-efs-csi-driver:
+          required_pull_request_reviews:
+            required_approving_review_count: 1
           branches:
             gh-pages:
               protect: false
@@ -571,6 +581,13 @@ branch-protection:
             - test-backuprestore
             - test-upgradedowngrade
         external-dns:
+          branches:
+            gh-pages:
+              protect: false
+        headlamp:
+          exclude:
+          - "^hl-ci-" # Do not protect branches created by CI
+          - "^hl-rc-" # Do not protect release candidate branches
           branches:
             gh-pages:
               protect: false
@@ -695,6 +712,7 @@ tide:
     - kubernetes/sample-controller
     - kubernetes-sigs/cloud-provider-azure
     - kubernetes-sigs/cluster-api
+    - kubernetes/autoscaler
     labels:
     - lgtm
     - approved
@@ -792,9 +810,26 @@ tide:
       - do-not-merge/needs-area
       - do-not-merge/release-note-label-needed
       - do-not-merge/work-in-progress
+  - repos:
+    - kubernetes/autoscaler
+    labels:
+    - lgtm
+    - approved
+    - "cncf-cla: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/blocked-paths
+    - do-not-merge/contains-merge-commits
+    - do-not-merge/hold
+    - do-not-merge/invalid-commit-message
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/release-note-label-needed
+    - do-not-merge/work-in-progress
+    - do-not-merge/needs-area
   merge_method:
     kubernetes-client/csharp: squash
     kubernetes-client/gen: squash
+    kubernetes-sigs/agent-sandbox: squash
     kubernetes-sigs/cluster-api-provider-digitalocean: squash
     kubernetes-sigs/cluster-api-provider-ibmcloud: squash
     kubernetes-sigs/external-dns: squash
@@ -822,6 +857,7 @@ tide:
     kubernetes/dashboard: squash
     kubernetes/ingress-nginx: squash
     kubernetes-sigs/ingress2gateway: squash
+    kubernetes-sigs/node-readiness-controller: squash
   pr_status_base_urls:
     '*': https://prow.k8s.io/pr
   blocker_label: tide/merge-blocker
@@ -1048,6 +1084,23 @@ presets:
       readOnly: true
   env:
     - name: TF_VAR_powervs_api_key
+      valueFrom:
+        secretKeyRef:
+          name: prow-job-api-key
+          key: key
+  volumes:
+    - name: prow-job-ssh-private-key
+      secret:
+        defaultMode: 256
+        secretName: prow-job-ssh-private-key
+- labels:
+    preset-ibmcloud-cred-z: "true"
+  volumeMounts:
+    - mountPath: /etc/secret-volume
+      name: prow-job-ssh-private-key
+      readOnly: true
+  env:
+    - name: TF_VAR_vpc_api_key
       valueFrom:
         secretKeyRef:
           name: prow-job-api-key

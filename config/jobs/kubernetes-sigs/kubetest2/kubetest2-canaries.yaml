@@ -21,7 +21,7 @@ presubmits:
       path_alias: k8s.io/kubernetes
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4
@@ -54,7 +54,7 @@ presubmits:
       path_alias: k8s.io/kubernetes
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4
@@ -87,7 +87,7 @@ presubmits:
       path_alias: k8s.io/kubernetes
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4
@@ -113,7 +113,7 @@ presubmits:
       testgrid-dashboards: sig-testing-canaries
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4
@@ -139,7 +139,7 @@ presubmits:
       testgrid-dashboards: sig-testing-canaries
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4
@@ -176,7 +176,7 @@ presubmits:
     spec:
       serviceAccountName: node-e2e-tests
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4
@@ -196,12 +196,12 @@ presubmits:
           make install-all;
           cd ${GOPATH}/src/sigs.k8s.io/provider-aws-test-infra;
           AMI_ID=$(aws ssm get-parameters --names \;
-            /aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id \;
+            /aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id \;
             --query 'Parameters[0].[Value]' --output text);
           kubetest2 noop --test=node -- \;
             --provider=aws --repo-root=. --instance-type=m6a.large --focus-regex="\[NodeConformance\]" \;
             --test-args='--kubelet-flags="--cgroup-driver=systemd"' \;
-            --images=$AMI_ID --user-data-file=config/ubuntu2204.yaml
+            --images=$AMI_ID --user-data-file=config/ubuntu2404.yaml
 
   - name: pull-kubetest2-gce-node-e2e
     decorate: true
@@ -226,7 +226,7 @@ presubmits:
       testgrid-dashboards: sig-testing-canaries
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4
@@ -255,7 +255,7 @@ presubmits:
       testgrid-dashboards: sig-testing-canaries
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-master
+      - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20260127-c1affcc8de-master
         resources:
           limits:
             cpu: 4

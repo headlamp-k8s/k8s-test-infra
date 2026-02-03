@@ -13,7 +13,7 @@ presubmits:
     - ^release-1.10$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         command:
         - runner.sh
         - ./scripts/ci-build.sh
@@ -25,7 +25,7 @@ presubmits:
             cpu: 6000m
             memory: 4Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-build-release-1-10
   - name: pull-cluster-api-apidiff-release-1-10
     cluster: eks-prow-build-cluster
@@ -43,7 +43,7 @@ presubmits:
       - command:
         - runner.sh
         - ./scripts/ci-apidiff.sh
-        image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+        image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         resources:
           requests:
             cpu: 6000m
@@ -52,7 +52,7 @@ presubmits:
             cpu: 6000m
             memory: 2Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-apidiff-release-1-10
   - name: pull-cluster-api-verify-release-1-10
     cluster: eks-prow-build-cluster
@@ -68,7 +68,7 @@ presubmits:
     - ^release-1.10$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         command:
         - "runner.sh"
         - ./scripts/ci-verify.sh
@@ -82,7 +82,7 @@ presubmits:
         securityContext:
           privileged: true
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-verify-release-1-10
   - name: pull-cluster-api-test-release-1-10
     cluster: eks-prow-build-cluster
@@ -96,19 +96,19 @@ presubmits:
     run_if_changed: '^((api|bootstrap|cmd|config|controllers|controlplane|errors|exp|feature|hack|internal|scripts|test|util|webhooks|version)/|main\.go|go\.mod|go\.sum|Dockerfile|Makefile)'
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
         - runner.sh
         - ./scripts/ci-test.sh
         resources:
           requests:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
           limits:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-test-release-1-10
   - name: pull-cluster-api-test-mink8s-release-1-10
     cluster: eks-prow-build-cluster
@@ -122,7 +122,7 @@ presubmits:
     - ^release-1.10$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
         - runner.sh
         - ./scripts/ci-test.sh
@@ -138,13 +138,13 @@ presubmits:
           value: "1.29.5"
         resources:
           requests:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
           limits:
-            cpu: 7300m
+            cpu: 7
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-test-mink8s-release-1-10
   - name: pull-cluster-api-e2e-mink8s-release-1-10
     cluster: eks-prow-build-cluster
@@ -166,7 +166,7 @@ presubmits:
     - ^release-1.10$
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
         - runner.sh
         - ./scripts/ci-e2e.sh
@@ -198,7 +198,7 @@ presubmits:
             cpu: 3000m
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-e2e-mink8s-release-1-10
   - name: pull-cluster-api-e2e-blocking-release-1-10
     cluster: eks-prow-build-cluster
@@ -220,7 +220,7 @@ presubmits:
     run_if_changed: '^((api|bootstrap|cmd|config|controllers|controlplane|errors|exp|feature|hack|internal|scripts|test|util|webhooks|version)/|main\.go|go\.mod|go\.sum|Dockerfile|Makefile)'
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
           - runner.sh
           - "./scripts/ci-e2e.sh"
@@ -241,7 +241,7 @@ presubmits:
             cpu: 3000m
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-e2e-blocking-release-1-10
   - name: pull-cluster-api-e2e-release-1-10
     cluster: eks-prow-build-cluster
@@ -263,7 +263,7 @@ presubmits:
     path_alias: sigs.k8s.io/cluster-api
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
           - runner.sh
           - "./scripts/ci-e2e.sh"
@@ -287,7 +287,7 @@ presubmits:
             cpu: 3000m
             memory: 8Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-e2e-release-1-10
   - name: pull-cluster-api-e2e-upgrade-1-32-1-33-release-1-10
     cluster: eks-prow-build-cluster
@@ -309,7 +309,7 @@ presubmits:
       path_alias: k8s.io/kubernetes
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
           - runner.sh
           - "./scripts/ci-e2e.sh"
@@ -337,7 +337,7 @@ presubmits:
             cpu: 6000m
             memory: 6Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-e2e-release-1-10-1-32-1-33
   - name: pull-cluster-api-e2e-conformance-release-1-10
     cluster: eks-prow-build-cluster
@@ -359,7 +359,7 @@ presubmits:
     path_alias: sigs.k8s.io/cluster-api
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
         - runner.sh
         - "./scripts/ci-e2e.sh"
@@ -380,7 +380,7 @@ presubmits:
             cpu: 4000m
             memory: 4Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-e2e-conformance-release-1-10
   - name: pull-cluster-api-e2e-conformance-ci-latest-release-1-10
     cluster: eks-prow-build-cluster
@@ -402,7 +402,7 @@ presubmits:
     path_alias: sigs.k8s.io/cluster-api
     spec:
       containers:
-      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20250613-876fb90a97-1.32
+      - image: gcr.io/k8s-staging-test-infra/kubekins-e2e:v20260127-f10a7ebcce-1.32
         args:
         - runner.sh
         - "./scripts/ci-e2e.sh"
@@ -423,5 +423,5 @@ presubmits:
             cpu: 4000m
             memory: 4Gi
     annotations:
-      testgrid-dashboards: sig-cluster-lifecycle-cluster-api-1.10
+      testgrid-dashboards: cluster-api-core-1.10
       testgrid-tab-name: capi-pr-e2e-conformance-ci-latest-release-1-10
